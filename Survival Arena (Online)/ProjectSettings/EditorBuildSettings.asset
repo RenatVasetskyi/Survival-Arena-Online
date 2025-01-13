@@ -8,4 +8,11 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Bootstrap.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
-  m_configObjects: {}
+  - enabled: 1
+    path: Assets/Scenes/Initialize Photon.unity
+    guid: bcbbd32b60e6457448ff194cf0afd68b
+  - enabled: 1
+    path: Assets/Scenes/Main Menu.unity
+    guid: 944d60b798fd3a5428314949c5dc9953
+  m_configObjects:
+    com.unity.addressableassets: {fileID: 11400000, guid: f74b7d300d6047748a9f1a7c93aa4165, type: 2}
