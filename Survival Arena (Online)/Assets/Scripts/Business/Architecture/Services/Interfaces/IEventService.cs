@@ -1,10 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
+using Photon.Realtime;
 
 namespace Business.Architecture.Services.Interfaces
 {
     public interface IEventService
     {
-        event Action OnPhotonInitialized;
-        void SendPhotonInitialized();
+        event Action OnPhotonConnectedToMaster;
+        event Action<List<RoomInfo>> OnRoomListUpdated;
+        void SendPhotonConnectedToMaster();
+        void SendRoomListUpdated(List<RoomInfo> roomList);
     }
 }

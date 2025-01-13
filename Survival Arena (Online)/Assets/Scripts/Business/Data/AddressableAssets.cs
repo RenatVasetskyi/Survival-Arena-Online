@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 using UnityEngine.AddressableAssets;
 
 namespace Business.Data
@@ -6,6 +7,9 @@ namespace Business.Data
     [Serializable]
     public class AddressableAssets
     {
-        public AssetReferenceGameObject LoadingCurtain;
+        [SerializeField] private AssetReferenceGameObject _loadingCurtain;
+        [SerializeField] private AssetReferenceGameObject _roomButton;
+        public AssetReferenceGameObject LoadingCurtain => _loadingCurtain;
+        public AssetReferenceGameObject RoomButton => _roomButton;
     }
 }

@@ -1,4 +1,7 @@
+using System.Threading.Tasks;
 using Business.UI.Interfaces;
+using Business.UI.RoomList.Interfaces;
+using UnityEngine;
 
 namespace Business.Architecture.Services.Interfaces
 {
@@ -6,5 +9,6 @@ namespace Business.Architecture.Services.Interfaces
     {
         ILoadingCurtain LoadingCurtain { get; }
         void CreateLoadingCurtain();
+        Task<IRoomButton> CreateRoomButton(Transform parent);
     }
 }

@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Business.Architecture.Services.Interfaces;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.AddressableAssets.ResourceLocators;
 using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace Business.Architecture.Services
@@ -11,8 +12,15 @@ namespace Business.Architecture.Services
     {
         private readonly Dictionary<string, AsyncOperationHandle> _resourceCache = new();
         private readonly Dictionary<string, List<AsyncOperationHandle>> _handles = new();
+
+        public async Task InitializeAddressable()
+        {
+            AsyncOperationHandle<IResourceLocator> operation = Addressables.InitializeAsync();
+            await operation.Task;
+            Debug.Log($"Addressables initialized.");
+        }
         
-        public T Initialize<T>(string path) where T : Object
+        public T Load<T>(string path) where T : Object
         {
             return Resources.Load<T>(path);
         }

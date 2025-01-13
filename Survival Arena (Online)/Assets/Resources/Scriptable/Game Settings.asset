@@ -13,8 +13,13 @@ MonoBehaviour:
   m_Name: Game Settings
   m_EditorClassIdentifier: 
   AddressableAssets:
-    LoadingCurtain:
+    _loadingCurtain:
       m_AssetGUID: dfcffaa895c465e48bc7882e968dfb72
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    _roomButton:
+      m_AssetGUID: e5e3c5e8e2769bb4e8adc6fd8ea5e2f8
       m_SubObjectName: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0

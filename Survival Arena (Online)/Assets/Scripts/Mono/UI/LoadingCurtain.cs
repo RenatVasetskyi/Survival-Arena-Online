@@ -8,7 +8,7 @@ namespace Mono.UI
         private const int StartValue = 1;
         private const int EndValue = 0;
         
-        private const float Duration = 1f;
+        private const float Duration = 0.5f;
         
         [SerializeField] private CanvasGroup _canvasGroup;
 

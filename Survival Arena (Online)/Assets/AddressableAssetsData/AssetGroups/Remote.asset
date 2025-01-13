@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Remote
+  m_EditorClassIdentifier: 
+  m_GroupName: Remote
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 08a41cfc0d48f834ca48fc2ee3272d6b
+  m_SerializeEntries:
+  - m_GUID: dfcffaa895c465e48bc7882e968dfb72
+    m_Address: loading_curtain
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: eaa460613e7e1d04e8da740b2582665f
+    m_Address: select_room_window
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: e5e3c5e8e2769bb4e8adc6fd8ea5e2f8
+    m_Address: room_button
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 128854b807fa0e245b9520cd353659be
+    m_Address: base_canvas
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 9c2fb0dd00d9bc741810238341aa235b, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 506e314703661ff44a334105700eac3b, type: 2}
+    - {fileID: 11400000, guid: dbcb3ce0f681102409c632aaddae3041, type: 2}

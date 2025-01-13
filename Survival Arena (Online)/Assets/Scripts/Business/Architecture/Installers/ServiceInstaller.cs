@@ -23,6 +23,7 @@ namespace Business.Architecture.Installers
             BindAudioService();
             BindGamePauser();
             BindEventService();
+            BindPhotonConnectorService();
         }
         
         private void BindGamePauser()
@@ -105,6 +106,14 @@ namespace Business.Architecture.Installers
             Container
                 .Bind<IEventService>()
                 .To<EventService>()
+                .AsSingle();
+        }
+        
+        private void BindPhotonConnectorService()
+        {
+            Container
+                .Bind<IPhotonService>()
+                .To<PhotonService>()
                 .AsSingle();
         }
     }

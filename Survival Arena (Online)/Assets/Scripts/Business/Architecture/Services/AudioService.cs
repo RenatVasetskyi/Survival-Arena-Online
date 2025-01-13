@@ -68,14 +68,14 @@ namespace Business.Architecture.Services
         
         private void InitializeSfxDataList()
         {
-            SfxHolder sfxHolder = _assetProvider.Initialize<SfxHolder>(AssetPath.SfxHolder);
+            SfxHolder sfxHolder = _assetProvider.Load<SfxHolder>(AssetPath.SfxHolder);
 
             _sfxDataList.AddRange(sfxHolder.SoundEffects);
         }
 
         private void InitializeMusicDataList()
         {
-            MusicHolder musicHolder = _assetProvider.Initialize<MusicHolder>(AssetPath.MusicHolder);
+            MusicHolder musicHolder = _assetProvider.Load<MusicHolder>(AssetPath.MusicHolder);
 
             _musicDataList.AddRange(musicHolder.Musics);
         }

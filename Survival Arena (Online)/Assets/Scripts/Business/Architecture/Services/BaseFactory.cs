@@ -21,18 +21,18 @@ namespace Business.Architecture.Services
 
         public T CreateBaseWithContainer<T>(string path) where T : Component
         {
-            return _instantiator.InstantiatePrefabForComponent<T>(_assetProvider.Initialize<T>(path));
+            return _instantiator.InstantiatePrefabForComponent<T>(_assetProvider.Load<T>(path));
         }
 
         public T CreateBaseWithContainer<T>(string path, Transform parent) where T : Component
         {
-            return _instantiator.InstantiatePrefabForComponent<T>(_assetProvider.Initialize<T>(path), parent);
+            return _instantiator.InstantiatePrefabForComponent<T>(_assetProvider.Load<T>(path), parent);
         }
 
         public T CreateBaseWithContainer<T>(string path, Vector3 at, Quaternion rotation, Transform parent) where T : Component
         {
             return _instantiator.InstantiatePrefabForComponent<T>(_assetProvider
-                    .Initialize<T>(path), at, rotation, parent);
+                    .Load<T>(path), at, rotation, parent);
         }
 
         public T CreateBaseWithContainer<T>(T prefab, Vector3 at, Quaternion rotation, Transform parent) where T : Component
@@ -47,12 +47,12 @@ namespace Business.Architecture.Services
 
         public T CreateBaseWithObject<T>(string path) where T : Component
         {
-            return Object.Instantiate(_assetProvider.Initialize<T>(path));
+            return Object.Instantiate(_assetProvider.Load<T>(path));
         }
 
         public GameObject CreateBaseWithContainer(string path, Transform parent)
         {
-            return _instantiator.InstantiatePrefab(_assetProvider.Initialize<GameObject>(path), parent);
+            return _instantiator.InstantiatePrefab(_assetProvider.Load<GameObject>(path), parent);
         }
         
         public async Task<GameObject> CreateAddressableWithContainer

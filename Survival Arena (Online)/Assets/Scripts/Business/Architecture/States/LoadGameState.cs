@@ -37,7 +37,7 @@ namespace Business.Architecture.States
             _sceneLoader.Load(GameScene, Initialize);
         }
 
-        private async void Initialize()
+        private void Initialize()
         {
             _gamePauser.Clear();
             _gamePauser.SetPause(false);

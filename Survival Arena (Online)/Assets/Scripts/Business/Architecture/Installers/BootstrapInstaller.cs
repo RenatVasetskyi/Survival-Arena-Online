@@ -25,7 +25,6 @@ namespace Business.Architecture.Installers
         private void BindStates()
         {
             Container.Bind<BootstrapState>().AsSingle();
-            Container.Bind<InitializePhotonState>().AsSingle();
             Container.Bind<LoadMainMenuState>().AsSingle();
             Container.Bind<LoadGameState>().AsSingle();
         }
@@ -35,7 +34,6 @@ namespace Business.Architecture.Installers
             IStateMachine stateMachine = Container.Resolve<IStateMachine>();
 
             stateMachine.States.Add(typeof(BootstrapState), Container.Resolve<BootstrapState>());
-            stateMachine.States.Add(typeof(InitializePhotonState), Container.Resolve<InitializePhotonState>());
             stateMachine.States.Add(typeof(LoadMainMenuState), Container.Resolve<LoadMainMenuState>());
             stateMachine.States.Add(typeof(LoadGameState), Container.Resolve<LoadGameState>());
         }
