@@ -10,5 +10,6 @@ namespace Business.Architecture.Services.Interfaces
         ILoadingCurtain LoadingCurtain { get; }
         void CreateLoadingCurtain();
         Task<IRoomButton> CreateRoomButton(Transform parent);
+        Task CreateMainMenu();
     }
 }

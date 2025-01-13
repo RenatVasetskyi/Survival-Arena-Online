@@ -9,7 +9,9 @@ namespace Business.Data
     {
         [SerializeField] private AssetReferenceGameObject _loadingCurtain;
         [SerializeField] private AssetReferenceGameObject _roomButton;
+        [SerializeField] private AssetReferenceGameObject _mainMenu;
         public AssetReferenceGameObject LoadingCurtain => _loadingCurtain;
         public AssetReferenceGameObject RoomButton => _roomButton;
+        public AssetReferenceGameObject MainMenu => _mainMenu; 
     }
 }

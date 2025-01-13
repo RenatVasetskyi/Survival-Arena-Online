@@ -33,6 +33,11 @@ namespace Business.Architecture.Services
             LoadingCurtain = curtain.GetComponent<ILoadingCurtain>();
             LoadingCurtain.Show();  
         }
+        
+        public async Task CreateMainMenu()
+        { 
+            await CreateAddressableWithContainer(_gameSettings.AddressableAssets.MainMenu, Vector3.zero, Quaternion.identity, null);
+        }
 
         public async Task<IRoomButton> CreateRoomButton(Transform parent)
         {

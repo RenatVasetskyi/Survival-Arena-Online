@@ -21,8 +21,8 @@ MonoBehaviour:
     m_Address: loading_curtain
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: eaa460613e7e1d04e8da740b2582665f
-    m_Address: select_room_window
+  - m_GUID: 08397af163d52524f86b8136881b8233
+    m_Address: main_menu
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: e5e3c5e8e2769bb4e8adc6fd8ea5e2f8

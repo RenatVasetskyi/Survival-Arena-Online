@@ -35,6 +35,8 @@ namespace Business.Architecture.States
 
         private void Initialize()
         {
+            _uiFactory.CreateMainMenu();
+            
             if (_uiFactory.LoadingCurtain.GameObject != null)
                 _uiFactory.LoadingCurtain.Hide();
         }
