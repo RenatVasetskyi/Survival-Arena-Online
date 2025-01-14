@@ -39,8 +39,8 @@ namespace Business.Architecture.States
 
         private void Initialize()
         {
-            _factory.CreateBaseWithObject<Transform>(AssetPath.Container);
-            _uiFactory.CreateMainMenu();
+            Transform container = _factory.CreateBaseWithObject<Transform>(AssetPath.Container);
+            _uiFactory.CreateMainMenu(container);
             
             if (_uiFactory.LoadingCurtain.GameObject != null)
                 _uiFactory.LoadingCurtain.Hide();

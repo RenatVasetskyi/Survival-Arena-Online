@@ -12,8 +12,10 @@ namespace Business.UI.MainMenu.MVP
     {
         [SerializeField] private SerializedDictionary<MainMenuWindowType, GameObject> _menuWindows;
         [SerializeField] private Button _selectRoomWindowButton;
+        [SerializeField] private Button _closeSelectRoomWindowButton;
 
         public SerializedDictionary<MainMenuWindowType, GameObject> MenuWindows => _menuWindows;
         public Button SelectRoomWindowButton => _selectRoomWindowButton;
+        public Button CloseSelectRoomWindowButton => _closeSelectRoomWindowButton;
     }
 }

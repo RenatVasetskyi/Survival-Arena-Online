@@ -7,7 +7,8 @@ namespace Business.UI.MainMenu.MVP.Interfaces
 {
     public interface IMainMenuView
     {
-        public SerializedDictionary<MainMenuWindowType, GameObject> MenuWindows { get; }
-        public Button SelectRoomWindowButton { get; }
+        SerializedDictionary<MainMenuWindowType, GameObject> MenuWindows { get; }
+        Button SelectRoomWindowButton { get; }
+        Button CloseSelectRoomWindowButton { get; }
     }
 }

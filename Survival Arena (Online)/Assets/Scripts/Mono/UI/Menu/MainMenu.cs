@@ -17,16 +17,23 @@ namespace Mono.UI.Menu
             _menuMediator = new MainMenuMediator(_mainMenuView.MenuWindows);
             _menuMediator.OpenExclusiveWindow(MainMenuWindowType.MainWindow);
             _mainMenuView.SelectRoomWindowButton.onClick.AddListener(OpenSelectRoomWindow);
+            _mainMenuView.CloseSelectRoomWindowButton.onClick.AddListener(OpenMainWindow);
         }
         
         private void OnDestroy()
         {
             _mainMenuView.SelectRoomWindowButton.onClick.RemoveListener(OpenSelectRoomWindow);
+            _mainMenuView.CloseSelectRoomWindowButton.onClick.RemoveListener(OpenMainWindow);
         }
 
         private void OpenSelectRoomWindow()
         {
             _menuMediator.OpenExclusiveWindow(MainMenuWindowType.SelectRoomWindow);
+        }
+        
+        private void OpenMainWindow()
+        {
+            _menuMediator.OpenExclusiveWindow(MainMenuWindowType.MainWindow);
         }
     }
 }

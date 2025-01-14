@@ -34,9 +34,10 @@ namespace Business.Architecture.Services
             LoadingCurtain.Show();  
         }
         
-        public async Task CreateMainMenu()
+        public async Task CreateMainMenu(Transform parent)
         { 
-            await CreateAddressableWithContainer(_gameSettings.AddressableAssets.MainMenu, Vector3.zero, Quaternion.identity, null);
+            await CreateAddressableWithContainer(_gameSettings.AddressableAssets
+                .MainMenu, Vector3.zero, Quaternion.identity, parent);
         }
 
         public async Task<IRoomButton> CreateRoomButton(Transform parent)
