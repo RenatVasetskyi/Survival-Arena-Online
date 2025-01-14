@@ -16,19 +16,7 @@ MonoBehaviour:
   m_Data:
     m_SerializedData: []
   m_GUID: 08a41cfc0d48f834ca48fc2ee3272d6b
-  m_SerializeEntries:
-  - m_GUID: dfcffaa895c465e48bc7882e968dfb72
-    m_Address: loading_curtain
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 08397af163d52524f86b8136881b8233
-    m_Address: main_menu
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: e5e3c5e8e2769bb4e8adc6fd8ea5e2f8
-    m_Address: room_button
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+  m_SerializeEntries: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 9c2fb0dd00d9bc741810238341aa235b, type: 2}
   m_SchemaSet:

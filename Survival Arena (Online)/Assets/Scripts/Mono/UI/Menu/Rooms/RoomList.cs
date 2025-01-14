@@ -17,21 +17,22 @@ namespace Mono.UI.Menu.Rooms
         private IRoomListPresenter _presenter;
         
         [Inject]
-        public void Inject(IUIFactory uiFactory, IPhotonService photonService, IEventService eventService)
+        public void Inject(IUIFactory uiFactory, IPhotonService photonService,
+            IEventService eventService)
         {
             _photonService = photonService;
             _eventService = eventService;
             _presenter = new RoomListPresenter(new RoomListModel(photonService), _view);
         }
 
-        private void Awake()
+        private void OnEnable()
         {
             _eventService.OnRoomListUpdated += OnRoomListUpdate;
             _view.CreateRoomButton.onClick.AddListener(CreateRoom);
             _photonService.JoinLobby();
         }
 
-        private void OnDestroy()
+        private void OnDisable()
         {
             _eventService.OnRoomListUpdated -= OnRoomListUpdate;
             _view.CreateRoomButton.onClick.RemoveListener(CreateRoom);

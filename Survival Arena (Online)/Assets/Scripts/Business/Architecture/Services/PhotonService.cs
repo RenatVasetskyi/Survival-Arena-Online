@@ -8,7 +8,7 @@ using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 namespace Business.Architecture.Services
 {
-    public class PhotonService : IPhotonService, IConnectionCallbacks, ILobbyCallbacks, IInRoomCallbacks
+    public class PhotonService : IPhotonService, IConnectionCallbacks, ILobbyCallbacks, IInRoomCallbacks, IMatchmakingCallbacks
     {
         private const int MaxPlayers = 2;
         
@@ -33,7 +33,7 @@ namespace Business.Architecture.Services
         {
             if (_isReconnecting)
             {
-                Debug.LogError("Photon reconnection is processing...");
+                Debug.LogError("Photon reconnection is already processing...");
                 return;
             }
 
@@ -48,20 +48,18 @@ namespace Business.Architecture.Services
 
         public void LeaveRoom()
         {
-            if (PhotonNetwork.InRoom)
-                PhotonNetwork.LeaveRoom();   
+            PhotonNetwork.LeaveRoom();   
         }
 
         public void LeaveLobby()
         {
-            if (PhotonNetwork.InLobby) 
-                PhotonNetwork.LeaveLobby();
+            PhotonNetwork.LeaveLobby();
         }
         
         public void CreateRoom(string name, bool isVisible = true, bool isOpen = true)
         {
             PhotonNetwork.CreateRoom(name, new RoomOptions { IsVisible = isVisible, 
-                IsOpen = isOpen, MaxPlayers = MaxPlayers }, TypedLobby.Default);
+                IsOpen = isOpen, MaxPlayers = MaxPlayers } );
         }
 
         public void OnConnectedToMaster()
@@ -75,18 +73,6 @@ namespace Business.Architecture.Services
         {
             _eventService.SendRoomListUpdated(roomList);
             Debug.Log($"Photon room list updated, room count: {roomList.Count}");
-        }
-        
-        public void OnJoinedLobby()
-        {
-            _eventService.SendJoinedLobby();
-            Debug.Log("Player joined lobby.");
-        }
-
-        public void OnLeftLobby()
-        {
-            _eventService.SendLeftLobby();
-            Debug.Log("Player left lobby.");
         }
         
         public void OnPlayerEnteredRoom(Player newPlayer)
@@ -131,5 +117,14 @@ namespace Business.Architecture.Services
         public void OnRoomPropertiesUpdate(Hashtable propertiesThatChanged) { }
         public void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps) { }
         public void OnMasterClientSwitched(Player newMasterClient) { }
+        public void OnFriendListUpdate(List<FriendInfo> friendList) { }
+        public void OnCreateRoomFailed(short returnCode, string message) { }
+        public void OnJoinRoomFailed(short returnCode, string message) { }
+        public void OnJoinRandomFailed(short returnCode, string message) { }
+        public void OnCreatedRoom() { }
+        public void OnJoinedLobby() { }
+        public void OnLeftLobby() { }
+        public void OnJoinedRoom() { }
+        public void OnLeftRoom() { }
     }
 }

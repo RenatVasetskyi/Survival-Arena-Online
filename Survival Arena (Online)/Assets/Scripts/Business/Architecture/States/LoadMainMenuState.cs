@@ -38,6 +38,7 @@ namespace Business.Architecture.States
         public void Enter()
         {
             _uiFactory.CreateLoadingCurtain();
+            _uiFactory.LoadingCurtain.Show();
             _sceneLoader.Load(MainMenuScene, Initialize);
         }
 
@@ -45,9 +46,7 @@ namespace Business.Architecture.States
         {
             Transform container = _factory.CreateBaseWithObject<Transform>(AssetPath.Container);
             _uiFactory.CreateMainMenu(container);
-            
-            if (_uiFactory.LoadingCurtain.GameObject != null)
-                _uiFactory.LoadingCurtain.Hide();
+            _uiFactory.LoadingCurtain.Hide();
         }
     }
 }

@@ -32,7 +32,10 @@ namespace Business.Architecture.States
 
         public void Enter()
         {
-            _uiFactory.CreateLoadingCurtain();
+            // if (_uiFactory.LoadingCurtain == null)
+                // _uiFactory.CreateLoadingCurtain();    
+            
+            // _uiFactory.LoadingCurtain.Show();
             
             _sceneLoader.Load(GameScene, Initialize);
         }
@@ -41,6 +44,8 @@ namespace Business.Architecture.States
         {
             _gamePauser.Clear();
             _gamePauser.SetPause(false);
+            
+            // _uiFactory.LoadingCurtain.Hide();
         }
     }
 }
