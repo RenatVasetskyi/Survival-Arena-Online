@@ -10,7 +10,6 @@ namespace Business.Architecture.Services
     {
         private readonly IAssetProvider _assetProvider;
         private readonly IFactory _factory;
-        private readonly ISaveService _saveService;
 
         private readonly List<SfxData> _sfxDataList = new();
         private readonly List<MusicData> _musicDataList = new();
@@ -18,42 +17,36 @@ namespace Business.Architecture.Services
         private AudioSource _sfxAudioSource;
         private AudioSource _musicAudioSource;
 
-        public bool IsMusicOn { get; private set; }
-        public bool IsSfxOn { get; private set; }
-
-        public AudioService(IAssetProvider assetProvider, IFactory factory, 
-            ISaveService saveService)
+        public AudioService(IAssetProvider assetProvider, IFactory factory)
         {
             _assetProvider = assetProvider;
             _factory = factory;
-            _saveService = saveService;
         }
 
         public void PlayMusic(MusicType musicType)
         {
-            // MusicData musicData = GetMusicData(musicType);
-            // _musicAudioSource.clip = musicData.Clip;
-            // _musicAudioSource.Play();
+            MusicData musicData = GetMusicData(musicType);
+            _musicAudioSource.clip = musicData.Clip;
+            _musicAudioSource.Play();
         }
 
         public void PlaySfx(SfxType sfxType)
         {
-            // SfxData sfxData = GetSfxData(sfxType);
-            // _sfxAudioSource.PlayOneShot(sfxData.Clip);
+            SfxData sfxData = GetSfxData(sfxType);
+            _sfxAudioSource.PlayOneShot(sfxData.Clip);
         }
 
         public void Initialize()
         {
-            // InitializeSfxDataList();
-            // InitializeMusicDataList();
-            // InitializeSfxAudioSource();
-            // InitializeMusicAudioSource();
-            // Load();
+            InitializeSfxDataList();
+            InitializeMusicDataList();
+            InitializeSfxAudioSource();
+            InitializeMusicAudioSource();
         }
 
         public void StopMusic()
         {
-            // _musicAudioSource.Stop();
+            _musicAudioSource.Stop();
         }
 
         private MusicData GetMusicData(MusicType musicType)

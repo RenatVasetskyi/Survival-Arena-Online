@@ -1,5 +1,7 @@
 using Business.Architecture.Services.Interfaces;
 using Business.Architecture.States.Interfaces;
+using Business.Data;
+using UnityEngine;
 
 namespace Business.Architecture.States
 {
@@ -11,14 +13,16 @@ namespace Business.Architecture.States
         private readonly IAudioService _audioService;
         private readonly IUIFactory _uiFactory;
         private readonly IAssetProvider _assetProvider;
+        private readonly IFactory _factory;
 
         public LoadMainMenuState(ISceneLoader sceneLoader, IAudioService audioService, 
-            IUIFactory uiFactory, IAssetProvider assetProvider)
+            IUIFactory uiFactory, IAssetProvider assetProvider, IFactory factory)
         {
             _sceneLoader = sceneLoader;
             _audioService = audioService;
             _uiFactory = uiFactory;
             _assetProvider = assetProvider;
+            _factory = factory;
         }
         
         public void Exit()
@@ -35,6 +39,7 @@ namespace Business.Architecture.States
 
         private void Initialize()
         {
+            _factory.CreateBaseWithObject<Transform>(AssetPath.Container);
             _uiFactory.CreateMainMenu();
             
             if (_uiFactory.LoadingCurtain.GameObject != null)

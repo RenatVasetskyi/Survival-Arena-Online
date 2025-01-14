@@ -29,10 +29,6 @@ MonoBehaviour:
     m_Address: room_button
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: 128854b807fa0e245b9520cd353659be
-    m_Address: base_canvas
-    m_ReadOnly: 0
-    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 9c2fb0dd00d9bc741810238341aa235b, type: 2}
   m_SchemaSet:
