@@ -15,13 +15,6 @@ namespace Business.UI.RoomList
             _photonService = photonService;
         }
         
-        public void ReconnectToLobby()
-        {
-            _photonService.LeaveLobby();
-            _photonService.LeaveRoom();
-            _photonService.JoinLobby();
-        }
-
         public List<RoomInfo> UpdateRoomList(List<RoomInfo> roomList)
         {
             if (roomList.Count <= 0)
@@ -49,6 +42,11 @@ namespace Business.UI.RoomList
             }
             
             return _cachedRooms;
+        }
+
+        public void CreateRoom(string name)
+        {
+            _photonService.CreateRoom(name);
         }
     }
 }

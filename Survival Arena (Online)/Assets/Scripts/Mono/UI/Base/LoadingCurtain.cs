@@ -13,13 +13,18 @@ namespace Mono.UI.Base
         [SerializeField] private CanvasGroup _canvasGroup;
 
         private bool _isHiding;
+        
+        private LTDescr _hideTween;
 
         public GameObject GameObject => gameObject;
 
         public void Show()
         {
-            _canvasGroup.alpha = StartValue;
+            if (_hideTween != null)
+                LeanTween.cancel(_hideTween.id);
             
+            _isHiding = false;
+            _canvasGroup.alpha = StartValue;
             gameObject.SetActive(true);
         }
 
@@ -32,7 +37,7 @@ namespace Mono.UI.Base
             
             _canvasGroup.alpha = StartValue;
             
-            LeanTween.value(StartValue, EndValue, Duration)
+            _hideTween = LeanTween.value(StartValue, EndValue, Duration)
                 .setOnUpdate((value) => _canvasGroup.alpha = value)
                 .setOnComplete(() => Destroy(gameObject));
         }

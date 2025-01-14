@@ -5,7 +5,7 @@ namespace Business.UI.RoomList.Interfaces
 {
     public interface IRoomListModel
     {
-        void ReconnectToLobby();
         List<RoomInfo> UpdateRoomList(List<RoomInfo> roomList);
+        void CreateRoom(string name);
     }
 }

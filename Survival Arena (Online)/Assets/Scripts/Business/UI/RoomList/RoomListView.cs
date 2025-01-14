@@ -4,6 +4,7 @@ using Business.Architecture.Services.Interfaces;
 using Business.UI.RoomList.Interfaces;
 using Photon.Realtime;
 using UnityEngine;
+using UnityEngine.UI;
 using Object = UnityEngine.Object;
 
 namespace Business.UI.RoomList
@@ -14,6 +15,9 @@ namespace Business.UI.RoomList
         private readonly IUIFactory _uiFactory;
         
         [SerializeField] private Transform _contentHolder;
+        [SerializeField] private Button _createRoomButton;
+        
+        public Button CreateRoomButton => _createRoomButton;
 
         public RoomListView(IUIFactory uiFactory)
         {
@@ -23,7 +27,7 @@ namespace Business.UI.RoomList
         public async void UpdateRoomList(List<RoomInfo> roomList)
         {
             ClearRoomList();
-
+            
             foreach (RoomInfo room in roomList)
             {
                 IRoomButton roomButton = await _uiFactory.CreateRoomButton(_contentHolder);

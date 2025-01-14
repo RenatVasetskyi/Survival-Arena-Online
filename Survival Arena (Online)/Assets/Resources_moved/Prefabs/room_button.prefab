@@ -279,6 +279,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 361403480110366768}
+  - component: {fileID: 5625419564188587928}
   m_Layer: 5
   m_Name: room_button
   m_TagString: Untagged
@@ -308,3 +309,17 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1181.8, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &5625419564188587928
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 361403480110366769}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7654150bd16b413d993cbb5a14d712eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _roomName: {fileID: 361403478659750120}
+  _playerCount: {fileID: 361403479334804541}

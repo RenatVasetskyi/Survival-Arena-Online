@@ -6,5 +6,6 @@ namespace Business.UI.RoomList.Interfaces
     public interface IRoomListPresenter
     {
         void UpdateRoomList(List<RoomInfo> roomList);
+        void CreateRoom(string name);
     }
 }

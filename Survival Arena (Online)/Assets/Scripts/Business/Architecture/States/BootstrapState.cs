@@ -1,6 +1,5 @@
 using Business.Architecture.Services.Interfaces;
 using Business.Architecture.States.Interfaces;
-using UnityEngine;
 using Application = UnityEngine.Device.Application;
 
 namespace Business.Architecture.States

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1245483926606068336}
   - component: {fileID: 1245483926606068342}
   - component: {fileID: 1245483926606068337}
+  - component: {fileID: 5936307482564101357}
   m_Layer: 5
   m_Name: select_room_window
   m_TagString: Untagged
@@ -80,6 +81,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &5936307482564101357
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1245483926606068339}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7f22774bf8f4ddd9e923b8d7e5d4ec9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _view:
+    _contentHolder: {fileID: 1387879805037743957}
+    _createRoomButton: {fileID: 6539851024559554259}
 --- !u!1 &1336462125465158365
 GameObject:
   m_ObjectHideFlags: 0
