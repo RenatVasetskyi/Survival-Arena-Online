@@ -1,5 +1,7 @@
-﻿using Business.UI.Interfaces;
+﻿using Business.Architecture.Services.Interfaces;
+using Business.UI.Interfaces;
 using UnityEngine;
+using Zenject;
 
 namespace Mono.UI.Base
 {
@@ -12,11 +14,17 @@ namespace Mono.UI.Base
         
         [SerializeField] private CanvasGroup _canvasGroup;
 
+        private IUIFactory _uiFactory;
+        
         private bool _isHiding;
         
         private LTDescr _hideTween;
 
-        public GameObject GameObject => gameObject;
+        [Inject]
+        public void Inject(IUIFactory uiFactory)
+        {
+            _uiFactory = uiFactory;
+        }
 
         public void Show()
         {
@@ -39,7 +47,11 @@ namespace Mono.UI.Base
             
             _hideTween = LeanTween.value(StartValue, EndValue, Duration)
                 .setOnUpdate((value) => _canvasGroup.alpha = value)
-                .setOnComplete(() => Destroy(gameObject));
+                .setOnComplete(() =>
+                {
+                    _uiFactory.MakeLoadingCurtainNull();
+                    Destroy(gameObject);
+                });
         }
     }
 }

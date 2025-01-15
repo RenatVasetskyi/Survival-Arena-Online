@@ -44,7 +44,7 @@ namespace Business.Architecture.States
 
         private async void Initialize()
         {
-            _uiFactory.CreateLoadingCurtain();
+            await _uiFactory.CreateLoadingCurtain();
             
             Application.targetFrameRate = TargetFrameRate;
             

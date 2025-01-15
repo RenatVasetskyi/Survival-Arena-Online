@@ -1,6 +1,7 @@
 using Business.Architecture.Services;
 using Business.Architecture.Services.Interfaces;
 using Business.Data;
+using Business.Data.Interfaces;
 using UnityEngine;
 using Zenject;
 using IFactory = Business.Architecture.Services.Interfaces.IFactory;
@@ -37,7 +38,8 @@ namespace Business.Architecture.Installers
         private void BindGameSettings()
         {
             Container
-                .Bind<GameSettings>()
+                .Bind<IGameSettings>()
+                .To<GameSettings>()
                 .FromScriptableObject(_gameSettings)
                 .AsSingle();
         }

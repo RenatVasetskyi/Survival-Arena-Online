@@ -30,12 +30,9 @@ namespace Business.Architecture.States
             _audioService.StopMusic();
         }
 
-        public void Enter()
-        {
-            // if (_uiFactory.LoadingCurtain == null)
-                // _uiFactory.CreateLoadingCurtain();    
-            
-            // _uiFactory.LoadingCurtain.Show();
+        public async void Enter()
+        { 
+            await _uiFactory.CreateLoadingCurtain();    
             
             _sceneLoader.Load(GameScene, Initialize);
         }
@@ -44,8 +41,8 @@ namespace Business.Architecture.States
         {
             _gamePauser.Clear();
             _gamePauser.SetPause(false);
-            
-            // _uiFactory.LoadingCurtain.Hide();
+
+            _uiFactory.LoadingCurtain.Hide();
         }
     }
 }

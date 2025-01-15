@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5beb992161e04217be0ce871cd9527a, type: 3}
   m_Name: Game Settings
   m_EditorClassIdentifier: 
-  AddressableAssets:
+  _addressableAssets:
     _loadingCurtain:
       m_AssetGUID: dfcffaa895c465e48bc7882e968dfb72
       m_SubObjectName: 
@@ -28,3 +28,4 @@ MonoBehaviour:
       m_SubObjectName: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0
+  _playerSpawnRange: 3

@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 using Business.Architecture.Services.Interfaces;
-using Business.Data;
+using Business.Data.Interfaces;
 using Business.UI.Interfaces;
 using Business.UI.RoomList.Interfaces;
 using UnityEngine;
@@ -10,16 +10,17 @@ namespace Business.Architecture.Services
 {
     public class UIFactory : BaseFactory, IUIFactory
     {
-        private readonly GameSettings _gameSettings;
+        private readonly IGameSettings _gameSettings;
         public ILoadingCurtain LoadingCurtain { get; private set; }
-        
-        public UIFactory(DiContainer container, IAssetProvider assetProvider, GameSettings gameSettings)
-            : base(container, assetProvider)
+
+        protected UIFactory(IInstantiator instantiator, IAssetProvider assetProvider, DiContainer container,
+            IPhotonService photonService, IGameSettings gameSettings) :
+            base(instantiator, assetProvider, container, photonService)
         {
             _gameSettings = gameSettings;
         }
-
-        public async void CreateLoadingCurtain()
+        
+        public async Task CreateLoadingCurtain()
         {
             if (LoadingCurtain != null)
             {
@@ -38,6 +39,11 @@ namespace Business.Architecture.Services
         { 
             await CreateAddressableWithContainer(_gameSettings.AddressableAssets
                 .MainMenu, Vector3.zero, Quaternion.identity, parent);
+        }
+
+        public void MakeLoadingCurtainNull()
+        {
+            LoadingCurtain = null;
         }
 
         public async Task<IRoomButton> CreateRoomButton(Transform parent)

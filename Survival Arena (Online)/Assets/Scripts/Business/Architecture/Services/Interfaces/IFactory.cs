@@ -17,5 +17,7 @@ namespace Business.Architecture.Services.Interfaces
             (AssetReferenceGameObject assetReference, Vector3 at, Quaternion rotation, Transform parent);
         Task<GameObject> CreateAddressableWithObject(AssetReferenceGameObject assetReference, Vector3 at,
             Quaternion rotation, Transform parent);
+        Task<GameObject> CreateAddressableWithPhoton(AssetReferenceGameObject assetReference,
+            Vector3 at, Quaternion rotation, Transform parent);
     }
 }

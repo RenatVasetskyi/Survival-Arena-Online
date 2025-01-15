@@ -12,11 +12,16 @@ namespace Business.Architecture.Services
     {
         private readonly IInstantiator _instantiator;
         private readonly IAssetProvider _assetProvider;
+        private readonly DiContainer _container;
+        private readonly IPhotonService _photonService;
 
-        protected BaseFactory(IInstantiator instantiator, IAssetProvider assetProvider)
+        protected BaseFactory(IInstantiator instantiator, IAssetProvider assetProvider,
+            DiContainer container, IPhotonService photonService)
         {
             _instantiator = instantiator;
             _assetProvider = assetProvider;
+            _container = container;
+            _photonService = photonService;
         }
 
         public T CreateBaseWithContainer<T>(string path) where T : Component
@@ -63,12 +68,22 @@ namespace Business.Architecture.Services
             return _instantiator.InstantiatePrefab(loadedResource, at, rotation, parent);
         }
 
-        public async Task<GameObject> CreateAddressableWithObject(AssetReferenceGameObject assetReference, Vector3 at, Quaternion rotation,
-            Transform parent)
+        public async Task<GameObject> CreateAddressableWithObject(AssetReferenceGameObject assetReference,
+            Vector3 at, Quaternion rotation, Transform parent)
         {
             GameObject loadedResource = await _assetProvider.Load<GameObject>(assetReference);
             
             return Object.Instantiate(loadedResource, at, rotation, parent);
+        }
+
+        public async Task<GameObject> CreateAddressableWithPhoton(AssetReferenceGameObject assetReference,
+            Vector3 at, Quaternion rotation, Transform parent)
+        {
+            GameObject loadedResource = await _assetProvider.Load<GameObject>(assetReference);
+            GameObject createdObject = _photonService.Instantiate(loadedResource.name, at, rotation);
+            createdObject.transform.SetParent(parent);
+            _container.Inject(createdObject);
+            return createdObject;
         }
     }
 }

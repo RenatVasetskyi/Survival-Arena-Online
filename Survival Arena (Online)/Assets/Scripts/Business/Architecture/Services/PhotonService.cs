@@ -10,7 +10,7 @@ namespace Business.Architecture.Services
 {
     public class PhotonService : IPhotonService, IConnectionCallbacks, ILobbyCallbacks, IInRoomCallbacks, IMatchmakingCallbacks
     {
-        private const int MaxPlayers = 2;
+        private const int MaxPlayers = 3;
         
         private readonly ICoroutineRunner _coroutineRunner;
         private readonly IEventService _eventService;
@@ -62,6 +62,11 @@ namespace Business.Architecture.Services
                 IsOpen = isOpen, MaxPlayers = MaxPlayers } );
         }
 
+        public GameObject Instantiate(string loadedResourceName, Vector3 at, Quaternion rotation)
+        {
+            return PhotonNetwork.Instantiate(loadedResourceName, at, rotation);
+        }
+
         public void OnConnectedToMaster()
         {
             _isReconnecting = false;
@@ -83,6 +88,11 @@ namespace Business.Architecture.Services
         public void OnPlayerLeftRoom(Player otherPlayer)
         {
             Debug.Log("Player left room: " + otherPlayer.NickName);
+        }
+        
+        public void OnJoinedRoom()
+        {
+            _eventService.SendJoinedRoom();
         }
 
         private void AddCallbackTarget(object target)
@@ -124,7 +134,6 @@ namespace Business.Architecture.Services
         public void OnCreatedRoom() { }
         public void OnJoinedLobby() { }
         public void OnLeftLobby() { }
-        public void OnJoinedRoom() { }
         public void OnLeftRoom() { }
     }
 }
