@@ -1,6 +1,6 @@
-using System.Threading.Tasks;
 using Business.UI.Interfaces;
 using Business.UI.RoomList.Interfaces;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace Business.Architecture.Services.Interfaces
@@ -8,9 +8,9 @@ namespace Business.Architecture.Services.Interfaces
     public interface IUIFactory
     {
         ILoadingCurtain LoadingCurtain { get; }
-        Task CreateLoadingCurtain();
-        Task<IRoomButton> CreateRoomButton(Transform parent);
-        Task CreateMainMenu(Transform parent);
+        UniTask CreateLoadingCurtain();
+        UniTask<IRoomButton> CreateRoomButton(Transform parent);
+        UniTask CreateMainMenu(Transform parent);
         void MakeLoadingCurtainNull();
     }
 }

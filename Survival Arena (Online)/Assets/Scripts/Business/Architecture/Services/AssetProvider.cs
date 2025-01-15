@@ -1,6 +1,8 @@
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using Business.Architecture.Services.Interfaces;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.AddressableAssets.ResourceLocators;
@@ -13,7 +15,7 @@ namespace Business.Architecture.Services
         private readonly Dictionary<string, AsyncOperationHandle> _resourceCache = new();
         private readonly Dictionary<string, List<AsyncOperationHandle>> _handles = new();
 
-        public async Task InitializeAddressable()
+        public async UniTask InitializeAddressable()
         {
             AsyncOperationHandle<IResourceLocator> operation = Addressables.InitializeAsync();
             await operation.Task;
@@ -25,7 +27,7 @@ namespace Business.Architecture.Services
             return Resources.Load<T>(path);
         }
 
-        public async Task<T> Load<T>(AssetReferenceGameObject assetReference) where T : Object
+        public async UniTask<T> Load<T>(AssetReferenceGameObject assetReference) where T : Object
         {
             if (_resourceCache.TryGetValue(assetReference.AssetGUID, out AsyncOperationHandle completedHandle))
             {

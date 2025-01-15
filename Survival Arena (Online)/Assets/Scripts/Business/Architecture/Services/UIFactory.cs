@@ -1,8 +1,8 @@
-using System.Threading.Tasks;
 using Business.Architecture.Services.Interfaces;
 using Business.Data.Interfaces;
 using Business.UI.Interfaces;
 using Business.UI.RoomList.Interfaces;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using Zenject;
 
@@ -20,7 +20,7 @@ namespace Business.Architecture.Services
             _gameSettings = gameSettings;
         }
         
-        public async Task CreateLoadingCurtain()
+        public async UniTask CreateLoadingCurtain()
         {
             if (LoadingCurtain != null)
             {
@@ -35,7 +35,7 @@ namespace Business.Architecture.Services
             LoadingCurtain.Show();  
         }
         
-        public async Task CreateMainMenu(Transform parent)
+        public async UniTask CreateMainMenu(Transform parent)
         { 
             await CreateAddressableWithContainer(_gameSettings.AddressableAssets
                 .MainMenu, Vector3.zero, Quaternion.identity, parent);
@@ -46,7 +46,7 @@ namespace Business.Architecture.Services
             LoadingCurtain = null;
         }
 
-        public async Task<IRoomButton> CreateRoomButton(Transform parent)
+        public async UniTask<IRoomButton> CreateRoomButton(Transform parent)
         {
             GameObject roomView = await CreateAddressableWithContainer
                 (_gameSettings.AddressableAssets.LoadingCurtain, Vector3.zero, Quaternion.identity, parent);

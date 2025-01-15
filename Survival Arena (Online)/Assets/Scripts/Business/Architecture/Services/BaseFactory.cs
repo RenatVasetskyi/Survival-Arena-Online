@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using Business.Architecture.Services.Interfaces;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using Zenject;
@@ -60,7 +61,7 @@ namespace Business.Architecture.Services
             return _instantiator.InstantiatePrefab(_assetProvider.Load<GameObject>(path), parent);
         }
         
-        public async Task<GameObject> CreateAddressableWithContainer
+        public async UniTask<GameObject> CreateAddressableWithContainer
             (AssetReferenceGameObject assetReference, Vector3 at, Quaternion rotation, Transform parent)
         {
             GameObject loadedResource = await _assetProvider.Load<GameObject>(assetReference);
@@ -68,7 +69,7 @@ namespace Business.Architecture.Services
             return _instantiator.InstantiatePrefab(loadedResource, at, rotation, parent);
         }
 
-        public async Task<GameObject> CreateAddressableWithObject(AssetReferenceGameObject assetReference,
+        public async UniTask<GameObject> CreateAddressableWithObject(AssetReferenceGameObject assetReference,
             Vector3 at, Quaternion rotation, Transform parent)
         {
             GameObject loadedResource = await _assetProvider.Load<GameObject>(assetReference);
@@ -76,7 +77,7 @@ namespace Business.Architecture.Services
             return Object.Instantiate(loadedResource, at, rotation, parent);
         }
 
-        public async Task<GameObject> CreateAddressableWithPhoton(AssetReferenceGameObject assetReference,
+        public async UniTask<GameObject> CreateAddressableWithPhoton(AssetReferenceGameObject assetReference,
             Vector3 at, Quaternion rotation, Transform parent)
         {
             GameObject loadedResource = await _assetProvider.Load<GameObject>(assetReference);

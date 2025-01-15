@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
@@ -13,11 +14,11 @@ namespace Business.Architecture.Services.Interfaces
         GameObject CreateBaseWithContainer(GameObject prefab, Vector3 at, Quaternion rotation, Transform parent);
         T CreateBaseWithObject<T>(string path) where T : Component;
         GameObject CreateBaseWithContainer(string path, Transform parent);
-        Task<GameObject> CreateAddressableWithContainer
+        UniTask<GameObject> CreateAddressableWithContainer
             (AssetReferenceGameObject assetReference, Vector3 at, Quaternion rotation, Transform parent);
-        Task<GameObject> CreateAddressableWithObject(AssetReferenceGameObject assetReference, Vector3 at,
+        UniTask<GameObject> CreateAddressableWithObject(AssetReferenceGameObject assetReference, Vector3 at,
             Quaternion rotation, Transform parent);
-        Task<GameObject> CreateAddressableWithPhoton(AssetReferenceGameObject assetReference,
+        UniTask<GameObject> CreateAddressableWithPhoton(AssetReferenceGameObject assetReference,
             Vector3 at, Quaternion rotation, Transform parent);
     }
 }
