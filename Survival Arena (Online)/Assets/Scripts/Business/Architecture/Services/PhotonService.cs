@@ -137,11 +137,7 @@ namespace Business.Architecture.Services
         public void OnCustomAuthenticationResponse(Dictionary<string, object> data) { }
         public void OnCustomAuthenticationFailed(string debugMessage) { }
         public void OnLobbyStatisticsUpdate(List<TypedLobbyInfo> lobbyStatistics) { }
-
-        public void OnRoomPropertiesUpdate(Hashtable propertiesThatChanged)
-        {
-            Debug.Log(propertiesThatChanged.ToString());
-        }
+        public void OnRoomPropertiesUpdate(Hashtable propertiesThatChanged) { }
         public void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps) { }
         public void OnMasterClientSwitched(Player newMasterClient) { }
         public void OnFriendListUpdate(List<FriendInfo> friendList) { }
