@@ -12,14 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5beb992161e04217be0ce871cd9527a, type: 3}
   m_Name: Game Settings
   m_EditorClassIdentifier: 
-  _addressableAssets:
-    _map:
-      m_AssetGUID: d915ac294396d9d4c9a1db5f6f9be30c
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
   _gameObjectHolder:
     _loadingCurtain: {fileID: 3977985052618479577, guid: dfcffaa895c465e48bc7882e968dfb72, type: 3}
     _roomButton: {fileID: 361403480110366769, guid: e5e3c5e8e2769bb4e8adc6fd8ea5e2f8, type: 3}
     _mainMenu: {fileID: 8844268150880066056, guid: 08397af163d52524f86b8136881b8233, type: 3}
-  _playerSpawnRange: 3
+  _playerMinSpawnRange: 7
+  _playerMaxSpawnRange: 10

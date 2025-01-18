@@ -40,7 +40,8 @@ namespace Business.Architecture.Services.Factories
 
         public IPlayer CreatePlayer(Transform middlePoint, Transform parent)
         {
-            Vector2 randomPoint = Random.insideUnitCircle * _gameSettings.PlayerSpawnRange;
+            float randomRadius = Random.Range(_gameSettings.PlayerMinSpawnRange, _gameSettings.PlayerMaxSpawnRange);
+            Vector2 randomPoint = Random.insideUnitCircle * randomRadius;
             
             Vector3 spawnPosition = new Vector3(
                 middlePoint.position.x + randomPoint.x,

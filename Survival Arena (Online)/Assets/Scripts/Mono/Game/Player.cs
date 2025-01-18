@@ -39,6 +39,10 @@ namespace Mono.Game
                 _rigidbody.MoveRotation(Quaternion.Slerp(_rigidbody.rotation, targetRotation,
                     Time.fixedDeltaTime * _rotationSpeed));
             }
+            else
+            {
+                _rigidbody.angularVelocity = Vector3.zero;
+            }
         }
     }
 }

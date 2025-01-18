@@ -9,6 +9,6 @@ namespace Mono.Game
         [SerializeField] private Transform _playerContainer;
 
         public Transform SpawnPoint => _spawnPoint;
-        public Transform PlayerContainer { get; }
+        public Transform PlayerContainer => _playerContainer;
     }
 }

@@ -8,9 +8,11 @@ namespace Business.Data
     {
         [SerializeField] private AddressableAssets _addressableAssets;
         [SerializeField] private GameObjectHolder _gameObjectHolder;
-        [SerializeField] private float _playerSpawnRange;
+        [SerializeField] private float _playerMinSpawnRange;
+        [SerializeField] private float _playerMaxSpawnRange;
         public AddressableAssets AddressableAssets => _addressableAssets;
         public GameObjectHolder GameObjectHolder => _gameObjectHolder;
-        public float PlayerSpawnRange => _playerSpawnRange;
+        public float PlayerMinSpawnRange => _playerMinSpawnRange;
+        public float PlayerMaxSpawnRange => _playerMaxSpawnRange;
     }
 }

@@ -4,6 +4,7 @@
     {
         AddressableAssets AddressableAssets { get; }
         GameObjectHolder GameObjectHolder { get; }
-        float PlayerSpawnRange { get; }
+        float PlayerMinSpawnRange { get; }
+        float PlayerMaxSpawnRange { get; }
     }
 }
