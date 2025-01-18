@@ -13,6 +13,8 @@ namespace Business.Architecture.Services.Factories
 {
     public class GameFactory : BaseFactory, IGameFactory
     {
+        private const string MapKey = "Map";
+        
         private readonly IPhotonService _photonService;
 
         protected GameFactory(IInstantiator instantiator, IAssetProvider assetProvider,
@@ -27,7 +29,7 @@ namespace Business.Architecture.Services.Factories
             if (_photonService.IsMasterClient)
             {
                 PhotonView map = CreateWithPhoton<PhotonView>(AssetPath.Map, Vector3.zero, Quaternion.identity, null);
-                PhotonNetwork.CurrentRoom.SetCustomProperties(new Hashtable { {"map", map.ViewID}});
+                PhotonNetwork.CurrentRoom.SetCustomProperties(new Hashtable { { MapKey, map.ViewID } } );
                 return map.GetComponent<IMap>();
             }
             
@@ -36,8 +38,8 @@ namespace Business.Architecture.Services.Factories
 
         private async UniTask<IMap> GetMap()
         {
-            await new WaitUntil(() => PhotonNetwork.CurrentRoom.CustomProperties.ContainsKey("map"));
-            int viewId = (int)PhotonNetwork.CurrentRoom.CustomProperties["map"];
+            await new WaitUntil(() => PhotonNetwork.CurrentRoom.CustomProperties.ContainsKey(MapKey));
+            int viewId = (int)PhotonNetwork.CurrentRoom.CustomProperties[MapKey];
             await new WaitUntil(() => PhotonView.Find(viewId) != null);
             return PhotonView.Find(viewId).GetComponent<IMap>();
         }
