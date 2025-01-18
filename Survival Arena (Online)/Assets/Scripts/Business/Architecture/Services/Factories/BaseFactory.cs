@@ -89,8 +89,9 @@ namespace Business.Architecture.Services.Factories
         {
             GameObject createdObject = _photonService.Instantiate(path, at, rotation);
             createdObject.transform.SetParent(parent);
-            _container.Inject(createdObject);
-            return createdObject.GetComponent<T>();
+            T component = createdObject.GetComponent<T>();
+            _container.Inject(component);
+            return component;
         }
     }
 }

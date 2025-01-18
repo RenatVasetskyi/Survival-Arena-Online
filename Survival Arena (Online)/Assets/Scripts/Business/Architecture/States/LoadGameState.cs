@@ -3,6 +3,7 @@ using Business.Architecture.Services.Interfaces;
 using Business.Architecture.States.Interfaces;
 using Business.Data;
 using Business.Game.Interfaces;
+using Business.Game.UI.Interfaces;
 using UnityEngine;
 
 namespace Business.Architecture.States
@@ -72,9 +73,10 @@ namespace Business.Architecture.States
             
             Transform container = _factory.CreateBaseWithObject<Transform>(AssetPath.Container);
             
-            _uiFactory.CreateGameView(AssetPath.GameView, container);
+            IGameView gameView = _uiFactory.CreateGameView(AssetPath.GameView, container);
             IMap map = await _gameFactory.CreateMap();
-            _gameFactory.CreatePlayer(map.SpawnPoint, map.PlayerContainer);
+            IPlayer player = _gameFactory.CreatePlayer(map.SpawnPoint, map.PlayerContainer);
+            player.Initialize(gameView.Joystick);
             
             _uiFactory.LoadingCurtain.Hide();
         }

@@ -38,7 +38,7 @@ namespace Business.Architecture.Services.Factories
             return await GetMap();
         }
 
-        public void CreatePlayer(Transform middlePoint, Transform parent)
+        public IPlayer CreatePlayer(Transform middlePoint, Transform parent)
         {
             Vector2 randomPoint = Random.insideUnitCircle * _gameSettings.PlayerSpawnRange;
             
@@ -48,7 +48,7 @@ namespace Business.Architecture.Services.Factories
                 middlePoint.position.z + randomPoint.y
             );
 
-            CreateWithPhoton<PhotonView>(AssetPath.Player, spawnPosition, Quaternion.identity, parent);
+            return CreateWithPhoton<PhotonView>(AssetPath.Player, spawnPosition, Quaternion.identity, parent).GetComponent<IPlayer>();
         }
         
         private async UniTask<IMap> GetMap()

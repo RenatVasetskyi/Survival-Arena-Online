@@ -7,6 +7,6 @@ namespace Business.Architecture.Services.Factories.Interfaces
     public interface IGameFactory
     {
         UniTask<IMap> CreateMap();
-        void CreatePlayer(Transform middlePoint, Transform parent);
+        IPlayer CreatePlayer(Transform middlePoint, Transform parent);
     }
 }
