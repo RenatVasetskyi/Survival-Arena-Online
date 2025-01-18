@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Business.Architecture.Services.Factories.Interfaces;
 using Business.Architecture.Services.Interfaces;
 using Business.Architecture.States;
 using Business.Architecture.States.Interfaces;
@@ -32,16 +33,14 @@ namespace Mono.UI.Menu.Rooms
         private void OnEnable()
         {
             _eventService.OnRoomListUpdated += OnRoomListUpdate;
-            _eventService.OnJoinedRoom += EnterGameState;
-            _view.CreateRoomButton.onClick.AddListener(CreateRoom);
+            _view.CreateRoomButton.onClick.AddListener(LoadGame);
             _photonService.JoinLobby();
         }
 
         private void OnDisable()
         {
             _eventService.OnRoomListUpdated -= OnRoomListUpdate;
-            _eventService.OnJoinedRoom -= EnterGameState;
-            _view.CreateRoomButton.onClick.RemoveListener(CreateRoom);
+            _view.CreateRoomButton.onClick.RemoveListener(LoadGame);
         }
 
         private void OnRoomListUpdate(List<RoomInfo> roomList)
@@ -49,13 +48,9 @@ namespace Mono.UI.Menu.Rooms
             _presenter.UpdateRoomList(roomList);
         }
 
-        private void CreateRoom()
+        private void LoadGame()
         {
-            _presenter.CreateRoom("Try");
-        }
-
-        private void EnterGameState()
-        {
+            _photonService.SetConnectionRoomName("Try");
             _stateMachine.Enter<LoadGameState>();
         }
     }

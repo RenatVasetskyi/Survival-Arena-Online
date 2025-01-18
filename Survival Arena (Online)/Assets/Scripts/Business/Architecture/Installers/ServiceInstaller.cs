@@ -1,10 +1,12 @@
 using Business.Architecture.Services;
+using Business.Architecture.Services.Factories;
+using Business.Architecture.Services.Factories.Interfaces;
 using Business.Architecture.Services.Interfaces;
 using Business.Data;
 using Business.Data.Interfaces;
 using UnityEngine;
 using Zenject;
-using IFactory = Business.Architecture.Services.Interfaces.IFactory;
+using IFactory = Business.Architecture.Services.Factories.Interfaces.IFactory;
 
 namespace Business.Architecture.Installers
 {
@@ -25,6 +27,7 @@ namespace Business.Architecture.Installers
             BindGamePauser();
             BindEventService();
             BindPhotonConnectorService();
+            BindGameFactory();
         }
         
         private void BindGamePauser()
@@ -116,6 +119,14 @@ namespace Business.Architecture.Installers
             Container
                 .Bind<IPhotonService>()
                 .To<PhotonService>()
+                .AsSingle();
+        }
+        
+        private void BindGameFactory()
+        {
+            Container
+                .Bind<IGameFactory>()
+                .To<GameFactory>()
                 .AsSingle();
         }
     }

@@ -1,3 +1,4 @@
+using Business.Architecture.Services.Factories.Interfaces;
 using Business.Architecture.Services.Interfaces;
 using Business.Data.Interfaces;
 using Business.UI.Interfaces;
@@ -5,7 +6,7 @@ using Business.UI.RoomList.Interfaces;
 using UnityEngine;
 using Zenject;
 
-namespace Business.Architecture.Services
+namespace Business.Architecture.Services.Factories
 {
     public class UIFactory : BaseFactory, IUIFactory
     {

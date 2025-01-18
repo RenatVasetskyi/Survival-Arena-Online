@@ -1,9 +1,8 @@
 using Business.UI.Interfaces;
 using Business.UI.RoomList.Interfaces;
-using Cysharp.Threading.Tasks;
 using UnityEngine;
 
-namespace Business.Architecture.Services.Interfaces
+namespace Business.Architecture.Services.Factories.Interfaces
 {
     public interface IUIFactory
     {

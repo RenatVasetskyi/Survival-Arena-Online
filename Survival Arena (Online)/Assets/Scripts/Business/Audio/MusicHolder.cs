@@ -6,6 +6,7 @@ namespace Business.Audio
     [CreateAssetMenu(fileName = "MusicHolder", menuName = "Create Music Holder/Holder")]
     public class MusicHolder : ScriptableObject
     {
-        public List<MusicData> Musics;
+        [SerializeField] private List<MusicData> _musics;
+        public List<MusicData> Musics => _musics;
     }
 }

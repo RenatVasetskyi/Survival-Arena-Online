@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.AddressableAssets;
 using Zenject;
 
-namespace Business.Architecture.Services
+namespace Business.Architecture.Services.Factories
 {
     using IFactory = Interfaces.IFactory;
 

@@ -6,6 +6,7 @@ namespace Business.Audio
     [CreateAssetMenu(fileName = "SfxHolder", menuName = "Create Sfx Holder/Holder")]
     public class SfxHolder : ScriptableObject
     {
-        public List<SfxData> SoundEffects;
+        [SerializeField] private List<SfxData> _soundEffects;
+        public List<SfxData> SoundEffects => _soundEffects;
     }
 }

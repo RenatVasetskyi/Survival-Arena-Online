@@ -16,6 +16,8 @@ namespace Business.Architecture.Services
         private readonly IEventService _eventService;
 
         private bool _isReconnecting;
+        
+        public string ConnectionRoomName { get; private set; }
 
         public PhotonService(ICoroutineRunner coroutineRunner, IEventService eventService)
         {
@@ -56,15 +58,20 @@ namespace Business.Architecture.Services
             PhotonNetwork.LeaveLobby();
         }
         
-        public void CreateRoom(string name, bool isVisible = true, bool isOpen = true)
+        public void JoinOrCreateRoom(string name, bool isVisible = true, bool isOpen = true)
         {
-            PhotonNetwork.CreateRoom(name, new RoomOptions { IsVisible = isVisible, 
-                IsOpen = isOpen, MaxPlayers = MaxPlayers } );
+            PhotonNetwork.JoinOrCreateRoom(name, new RoomOptions { IsVisible = isVisible, 
+                IsOpen = isOpen, MaxPlayers = MaxPlayers }, null );
         }
 
         public GameObject Instantiate(string loadedResourceName, Vector3 at, Quaternion rotation)
         {
             return PhotonNetwork.Instantiate(loadedResourceName, at, rotation);
+        }
+
+        public void SetConnectionRoomName(string roomName)
+        {
+            ConnectionRoomName = roomName;
         }
 
         public void OnConnectedToMaster()
@@ -94,10 +101,10 @@ namespace Business.Architecture.Services
         {
             _eventService.SendJoinedRoom();
         }
-
-        public void AutomaticallySyncScene(bool automaticallySync)
+        
+        public void OnJoinedLobby()
         {
-            PhotonNetwork.AutomaticallySyncScene = automaticallySync;
+            _eventService.SendJoinedLobby();
         }
 
         private void AddCallbackTarget(object target)
@@ -137,7 +144,6 @@ namespace Business.Architecture.Services
         public void OnJoinRoomFailed(short returnCode, string message) { }
         public void OnJoinRandomFailed(short returnCode, string message) { }
         public void OnCreatedRoom() { }
-        public void OnJoinedLobby() { }
         public void OnLeftLobby() { }
         public void OnLeftRoom() { }
     }

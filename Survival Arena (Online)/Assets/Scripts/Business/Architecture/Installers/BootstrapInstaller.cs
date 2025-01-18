@@ -1,6 +1,7 @@
 using Business.Architecture.States;
 using Business.Architecture.States.Interfaces;
 using Zenject;
+using LoadGameState = Business.Architecture.States.LoadGameState;
 using StateMachine = Business.Architecture.States.StateMachine;
 
 namespace Business.Architecture.Installers

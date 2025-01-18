@@ -6,6 +6,6 @@ namespace Business.UI.RoomList.Interfaces
     public interface IRoomListModel
     {
         List<RoomInfo> UpdateRoomList(List<RoomInfo> roomList);
-        void CreateRoom(string name);
+        void JoinOrCreateRoom(string name);
     }
 }

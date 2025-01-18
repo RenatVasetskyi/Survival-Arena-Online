@@ -20,9 +20,9 @@ namespace Business.UI.RoomList
             _view.UpdateRoomList(_model.UpdateRoomList(roomList));
         }
 
-        public void CreateRoom(string name)
+        public void JoinOrCreateRoom(string name)
         {
-            _model.CreateRoom(name);
+            _model.JoinOrCreateRoom(name);
         }
     }
 }

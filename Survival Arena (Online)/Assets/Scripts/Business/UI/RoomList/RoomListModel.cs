@@ -44,9 +44,9 @@ namespace Business.UI.RoomList
             return _cachedRooms;
         }
 
-        public void CreateRoom(string name)
+        public void JoinOrCreateRoom(string name)
         {
-            _photonService.CreateRoom(name);
+            _photonService.JoinOrCreateRoom(name);
         }
     }
 }

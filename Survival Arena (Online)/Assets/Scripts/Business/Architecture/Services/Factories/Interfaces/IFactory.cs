@@ -1,9 +1,8 @@
-using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
-namespace Business.Architecture.Services.Interfaces
+namespace Business.Architecture.Services.Factories.Interfaces
 {
     public interface IFactory
     {
