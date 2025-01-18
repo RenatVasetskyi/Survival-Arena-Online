@@ -18,8 +18,6 @@ namespace Business.Architecture.States
         private readonly IAssetProvider _assetProvider;
         private readonly IPhotonService _photonService;
         private readonly IEventService _eventService;
-        private readonly IFactory _factory;
-        private readonly IGameSettings _gameSettings;
         private readonly IGameFactory _gameFactory;
         private readonly PlayerSpawner _playerSpawner;
 
@@ -35,8 +33,6 @@ namespace Business.Architecture.States
             _assetProvider = assetProvider;
             _photonService = photonService;
             _eventService = eventService;
-            _factory = factory;
-            _gameSettings = gameSettings;
             _gameFactory = gameFactory;
             _playerSpawner = new PlayerSpawner(factory, gameSettings);
         }
@@ -69,13 +65,13 @@ namespace Business.Architecture.States
             _photonService.JoinOrCreateRoom(_photonService.ConnectionRoomName);
         }
 
-        private void Initialize()
+        private async void Initialize()
         {
             _gamePauser.Clear();
             _gamePauser.SetPause(false);
             
-            _gameFactory.CreateMap();
-            // _playerSpawner.SpawnPlayerInRange(null);
+            IMap map = await _gameFactory.CreateMap();
+            _playerSpawner.SpawnPlayerInRange(map.SpawnPoint, null);
             
             _uiFactory.LoadingCurtain.Hide();
         }

@@ -1,6 +1,10 @@
-﻿using Business.Architecture.Services.Factories.Interfaces;
+﻿using System.Threading.Tasks;
+using Business.Architecture.Services.Factories.Interfaces;
 using Business.Architecture.Services.Interfaces;
 using Business.Data;
+using Business.Game.Spawn.Interfaces;
+using Cysharp.Threading.Tasks;
+using ExitGames.Client.Photon;
 using Photon.Pun;
 using UnityEngine;
 using Zenject;
@@ -18,12 +22,24 @@ namespace Business.Architecture.Services.Factories
             _photonService = photonService;
         }
 
-        public void CreateMap()
+        public async Task<IMap> CreateMap()
         {
             if (_photonService.IsMasterClient)
             {
-                CreateWithPhoton<PhotonView>(AssetPath.Map, Vector3.zero, Quaternion.identity, null);
+                PhotonView map = CreateWithPhoton<PhotonView>(AssetPath.Map, Vector3.zero, Quaternion.identity, null);
+                PhotonNetwork.CurrentRoom.SetCustomProperties(new Hashtable { {"map", map.ViewID}});
+                return map.GetComponent<IMap>();
             }
+            
+            return await GetMap();
+        }
+
+        private async UniTask<IMap> GetMap()
+        {
+            await new WaitUntil(() => PhotonNetwork.CurrentRoom.CustomProperties.ContainsKey("map"));
+            int viewId = (int)PhotonNetwork.CurrentRoom.CustomProperties["map"];
+            await new WaitUntil(() => PhotonView.Find(viewId) != null);
+            return PhotonView.Find(viewId).GetComponent<IMap>();
         }
     }
 }

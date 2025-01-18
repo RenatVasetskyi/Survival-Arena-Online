@@ -1,7 +1,10 @@
-﻿namespace Business.Architecture.Services.Factories.Interfaces
+﻿using System.Threading.Tasks;
+using Business.Game.Spawn.Interfaces;
+
+namespace Business.Architecture.Services.Factories.Interfaces
 {
     public interface IGameFactory
     {
-        void CreateMap();
+        Task<IMap> CreateMap();
     }
 }
