@@ -1,41 +1,28 @@
-﻿using Business.Architecture.Services.Interfaces;
-using Business.Data.Interfaces;
+﻿using Business.Data.Interfaces;
 using Business.Game.Spawn;
 using Business.Game.Spawn.Interfaces;
 using UnityEngine;
 using Zenject;
+using IFactory = Business.Architecture.Services.Interfaces.IFactory;
 
 namespace Mono.Game
 {
     public class GameController : MonoBehaviour
     {
-        private readonly IPlayerSpawner _playerSpawner = new PlayerSpawner();
-        
+        [SerializeField] private Transform _playerHolder; 
         [SerializeField] private Transform _middleSpawnPoint; 
         
-        private IEventService _eventService;
-        private IGameSettings _gameSettings;
+        private IPlayerSpawner _playerSpawner;
         
         [Inject]
-        public void Inject(IEventService eventService, IGameSettings gameSettings)
+        public void Inject(IGameSettings gameSettings, IFactory factory)
         {
-            _eventService = eventService;
-            _gameSettings = gameSettings;
+            _playerSpawner = new PlayerSpawner(factory, gameSettings);
         }
 
         private void Awake()
-        {
-            _eventService.OnJoinedRoom += SpawnPlayer;
-        }
-
-        private void OnDestroy()
-        {
-            _eventService.OnJoinedRoom -= SpawnPlayer;
-        }
-
-        private void SpawnPlayer()
-        {
-            _playerSpawner.SpawnPlayerInRange(_middleSpawnPoint, _gameSettings.PlayerSpawnRange);
+        { 
+            _playerSpawner.SpawnPlayerInRange(_middleSpawnPoint, _playerHolder);
         }
     }
 }

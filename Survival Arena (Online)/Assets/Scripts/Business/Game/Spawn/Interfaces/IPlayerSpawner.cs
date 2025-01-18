@@ -4,6 +4,6 @@ namespace Business.Game.Spawn.Interfaces
 {
     public interface IPlayerSpawner
     {
-        void SpawnPlayerInRange(Transform middlePoint, float range);
+        void SpawnPlayerInRange(Transform middlePoint, Transform parent);
     }
 }

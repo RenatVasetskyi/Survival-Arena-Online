@@ -7,5 +7,6 @@ namespace Business.Data
         public const string SfxAudioSource = "Prefabs/Audio/sfx_audio_source";
         public const string MusicAudioSource = "Prefabs/Audio/music_audio_source";
         public const string Container = "Prefabs/container";
+        public const string Player = "Prefabs/player";
     }
 }

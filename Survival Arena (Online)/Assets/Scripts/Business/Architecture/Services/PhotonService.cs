@@ -95,6 +95,11 @@ namespace Business.Architecture.Services
             _eventService.SendJoinedRoom();
         }
 
+        public void AutomaticallySyncScene(bool automaticallySync)
+        {
+            PhotonNetwork.AutomaticallySyncScene = automaticallySync;
+        }
+
         private void AddCallbackTarget(object target)
         {
             PhotonNetwork.AddCallbackTarget(target);

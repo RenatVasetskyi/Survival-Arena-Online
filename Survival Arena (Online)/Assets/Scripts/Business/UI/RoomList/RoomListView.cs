@@ -24,13 +24,13 @@ namespace Business.UI.RoomList
             _uiFactory = uiFactory;
         }
 
-        public async void UpdateRoomList(List<RoomInfo> roomList)
+        public void UpdateRoomList(List<RoomInfo> roomList)
         {
             ClearRoomList();
             
             foreach (RoomInfo room in roomList)
             {
-                IRoomButton roomButton = await _uiFactory.CreateRoomButton(_contentHolder);
+                IRoomButton roomButton = _uiFactory.CreateRoomButton(_contentHolder);
                 roomButton.Initialize(room.Name, room.PlayerCount.ToString(), room.MaxPlayers.ToString());
             }
         }

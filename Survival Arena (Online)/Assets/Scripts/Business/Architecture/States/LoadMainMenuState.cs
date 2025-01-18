@@ -35,9 +35,9 @@ namespace Business.Architecture.States
             _photonService.LeaveLobby();
         }
 
-        public async void Enter()
+        public void Enter()
         {
-            await _uiFactory.CreateLoadingCurtain();
+            _uiFactory.CreateLoadingCurtain();
             _uiFactory.LoadingCurtain.Show();
             _sceneLoader.Load(MainMenuScene, Initialize);
         }

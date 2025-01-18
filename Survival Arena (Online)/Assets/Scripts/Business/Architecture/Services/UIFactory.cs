@@ -2,7 +2,6 @@ using Business.Architecture.Services.Interfaces;
 using Business.Data.Interfaces;
 using Business.UI.Interfaces;
 using Business.UI.RoomList.Interfaces;
-using Cysharp.Threading.Tasks;
 using UnityEngine;
 using Zenject;
 
@@ -20,37 +19,38 @@ namespace Business.Architecture.Services
             _gameSettings = gameSettings;
         }
         
-        public async UniTask CreateLoadingCurtain()
+        public ILoadingCurtain CreateLoadingCurtain()
         {
             if (LoadingCurtain != null)
             {
                 LoadingCurtain.Show();
                 
-                return;
+                return LoadingCurtain;
             }
             
-            GameObject curtain = await CreateAddressableWithContainer
-                (_gameSettings.AddressableAssets.LoadingCurtain, Vector3.zero, Quaternion.identity, null);
+            GameObject curtain = CreateBaseWithContainer(_gameSettings.GameObjectHolder.LoadingCurtain,
+                Vector3.zero, Quaternion.identity, null);
             LoadingCurtain = curtain.GetComponent<ILoadingCurtain>();
-            LoadingCurtain.Show();  
+            LoadingCurtain.Show();
+            return LoadingCurtain;
         }
         
-        public async UniTask CreateMainMenu(Transform parent)
+        public void CreateMainMenu(Transform parent)
         { 
-            await CreateAddressableWithContainer(_gameSettings.AddressableAssets
-                .MainMenu, Vector3.zero, Quaternion.identity, parent);
+            CreateBaseWithContainer(_gameSettings.GameObjectHolder.MainMenu,
+                Vector3.zero, Quaternion.identity, parent);
         }
 
+        public IRoomButton CreateRoomButton(Transform parent)
+        {
+            GameObject button = CreateBaseWithContainer(_gameSettings.GameObjectHolder.RoomButton,
+                Vector3.zero, Quaternion.identity, null);
+            return button.GetComponent<IRoomButton>();
+        }
+        
         public void MakeLoadingCurtainNull()
         {
             LoadingCurtain = null;
-        }
-
-        public async UniTask<IRoomButton> CreateRoomButton(Transform parent)
-        {
-            GameObject roomView = await CreateAddressableWithContainer
-                (_gameSettings.AddressableAssets.LoadingCurtain, Vector3.zero, Quaternion.identity, parent);
-            return roomView.GetComponent<IRoomButton>();
         }
     }
 }

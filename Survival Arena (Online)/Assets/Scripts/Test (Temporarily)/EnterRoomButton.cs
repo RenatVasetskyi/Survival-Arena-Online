@@ -1,6 +1,7 @@
 ﻿using Business.Architecture.States;
 using Business.Architecture.States.Interfaces;
 using Photon.Pun;
+using Photon.Realtime;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
@@ -28,9 +29,9 @@ namespace Test__Temporarily_
             PhotonNetwork.JoinRoom("Try");
         }
 
-        public override void OnJoinedRoom()
+        public override void OnPlayerEnteredRoom(Player newPlayer)
         {
-            base.OnJoinedRoom();
+            base.OnPlayerEnteredRoom(newPlayer);
             
             _stateMachine.Enter<LoadGameState>();
         }

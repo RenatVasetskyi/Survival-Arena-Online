@@ -30,9 +30,9 @@ namespace Business.Architecture.States
             _audioService.StopMusic();
         }
 
-        public async void Enter()
+        public void Enter()
         { 
-            await _uiFactory.CreateLoadingCurtain();    
+            _uiFactory.CreateLoadingCurtain();    
             
             _sceneLoader.Load(GameScene, Initialize);
         }
@@ -41,7 +41,7 @@ namespace Business.Architecture.States
         {
             _gamePauser.Clear();
             _gamePauser.SetPause(false);
-
+            
             _uiFactory.LoadingCurtain.Hide();
         }
     }

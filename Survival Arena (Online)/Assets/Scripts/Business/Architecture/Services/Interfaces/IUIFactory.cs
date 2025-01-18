@@ -8,9 +8,9 @@ namespace Business.Architecture.Services.Interfaces
     public interface IUIFactory
     {
         ILoadingCurtain LoadingCurtain { get; }
-        UniTask CreateLoadingCurtain();
-        UniTask<IRoomButton> CreateRoomButton(Transform parent);
-        UniTask CreateMainMenu(Transform parent);
+        ILoadingCurtain CreateLoadingCurtain();
+        IRoomButton CreateRoomButton(Transform parent);
+        void CreateMainMenu(Transform parent);
         void MakeLoadingCurtainNull();
     }
 }

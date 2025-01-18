@@ -1,4 +1,3 @@
-using System.Threading.Tasks;
 using Business.Architecture.Services.Interfaces;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
@@ -77,14 +76,12 @@ namespace Business.Architecture.Services
             return Object.Instantiate(loadedResource, at, rotation, parent);
         }
 
-        public async UniTask<GameObject> CreateAddressableWithPhoton(AssetReferenceGameObject assetReference,
-            Vector3 at, Quaternion rotation, Transform parent)
+        public T CreateWithPhoton<T>(string path, Vector3 at, Quaternion rotation, Transform parent)
         {
-            GameObject loadedResource = await _assetProvider.Load<GameObject>(assetReference);
-            GameObject createdObject = _photonService.Instantiate(loadedResource.name, at, rotation);
+            GameObject createdObject = _photonService.Instantiate(path, at, rotation);
             createdObject.transform.SetParent(parent);
             _container.Inject(createdObject);
-            return createdObject;
+            return createdObject.GetComponent<T>();
         }
     }
 }
