@@ -1,7 +1,5 @@
 using Business.Architecture.Services.Interfaces;
-using Cysharp.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 using Zenject;
 
 namespace Business.Architecture.Services.Factories
@@ -52,7 +50,16 @@ namespace Business.Architecture.Services.Factories
 
         public T CreateBaseWithObject<T>(string path) where T : Component
         {
-            return Object.Instantiate(_assetProvider.Load<T>(path));
+            T gameObject =  Object.Instantiate(_assetProvider.Load<T>(path));
+            _container.Inject(gameObject);
+            return gameObject;
+        }
+        
+        public T CreateBaseWithObject<T>(string path, Transform parent) where T : Component
+        {
+            T gameObject =  Object.Instantiate(_assetProvider.Load<T>(path), parent);
+            _container.Inject(gameObject);
+            return gameObject;
         }
 
         public GameObject CreateBaseWithContainer(string path, Transform parent)
@@ -60,21 +67,23 @@ namespace Business.Architecture.Services.Factories
             return _instantiator.InstantiatePrefab(_assetProvider.Load<GameObject>(path), parent);
         }
         
-        public async UniTask<GameObject> CreateAddressableWithContainer
-            (AssetReferenceGameObject assetReference, Vector3 at, Quaternion rotation, Transform parent)
-        {
-            GameObject loadedResource = await _assetProvider.Load<GameObject>(assetReference);
+        // public async UniTask<GameObject> CreateAddressableWithContainer
+            // (AssetReferenceGameObject assetReference, Vector3 at, Quaternion rotation, Transform parent)
+        // {
+            // GameObject loadedResource = await _assetProvider.Load<GameObject>(assetReference);
 
-            return _instantiator.InstantiatePrefab(loadedResource, at, rotation, parent);
-        }
+            // return _instantiator.InstantiatePrefab(loadedResource, at, rotation, parent);
+        // }
 
-        public async UniTask<GameObject> CreateAddressableWithObject(AssetReferenceGameObject assetReference,
-            Vector3 at, Quaternion rotation, Transform parent)
-        {
-            GameObject loadedResource = await _assetProvider.Load<GameObject>(assetReference);
+        // public async UniTask<GameObject> CreateAddressableWithObject(AssetReferenceGameObject assetReference,
+            // Vector3 at, Quaternion rotation, Transform parent)
+        // {
+            // GameObject loadedResource = await _assetProvider.Load<GameObject>(assetReference);
             
-            return Object.Instantiate(loadedResource, at, rotation, parent);
-        }
+            // GameObject gameObject =  Object.Instantiate(loadedResource, at, rotation, parent);
+            // _container.Inject(gameObject);
+            // return gameObject;
+        // }
 
         public T CreateWithPhoton<T>(string path, Vector3 at, Quaternion rotation, Transform parent)
         {

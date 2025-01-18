@@ -3,6 +3,7 @@ using Business.Architecture.Services.Interfaces;
 using Business.Architecture.States.Interfaces;
 using Business.Data.Interfaces;
 using Business.Game.Spawn;
+using Business.Game.Spawn.Interfaces;
 
 namespace Business.Architecture.States
 {
@@ -18,12 +19,14 @@ namespace Business.Architecture.States
         private readonly IPhotonService _photonService;
         private readonly IEventService _eventService;
         private readonly IFactory _factory;
+        private readonly IGameSettings _gameSettings;
+        private readonly IGameFactory _gameFactory;
         private readonly PlayerSpawner _playerSpawner;
 
         public LoadGameState(ISceneLoader sceneLoader, IGamePauser gamePauser,
             IAudioService audioService, IUIFactory uiFactory, IAssetProvider assetProvider, 
             IPhotonService photonService, IEventService eventService, IFactory factory, 
-            IGameSettings gameSettings)
+            IGameSettings gameSettings, IGameFactory gameFactory)
         {
             _sceneLoader = sceneLoader;
             _gamePauser = gamePauser;
@@ -33,6 +36,8 @@ namespace Business.Architecture.States
             _photonService = photonService;
             _eventService = eventService;
             _factory = factory;
+            _gameSettings = gameSettings;
+            _gameFactory = gameFactory;
             _playerSpawner = new PlayerSpawner(factory, gameSettings);
         }
         
@@ -69,7 +74,8 @@ namespace Business.Architecture.States
             _gamePauser.Clear();
             _gamePauser.SetPause(false);
             
-            // _playerSpawner.SpawnPlayerInRange();
+            _gameFactory.CreateMap();
+            // _playerSpawner.SpawnPlayerInRange(null);
             
             _uiFactory.LoadingCurtain.Hide();
         }

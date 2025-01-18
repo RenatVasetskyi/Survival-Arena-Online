@@ -5,6 +5,7 @@ namespace Business.Architecture.Services.Interfaces
     public interface IPhotonService
     {
         string ConnectionRoomName { get; }
+        bool IsMasterClient { get; }
         public void Reconnect();
         public void JoinLobby();
         public void LeaveRoom();

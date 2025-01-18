@@ -13,8 +13,8 @@ namespace Business.Architecture.Services.Factories
         private readonly IGameSettings _gameSettings;
         public ILoadingCurtain LoadingCurtain { get; private set; }
 
-        protected UIFactory(IInstantiator instantiator, IAssetProvider assetProvider, DiContainer container,
-            IPhotonService photonService, IGameSettings gameSettings) :
+        protected UIFactory(IInstantiator instantiator, IAssetProvider assetProvider,
+            DiContainer container, IPhotonService photonService, IGameSettings gameSettings) :
             base(instantiator, assetProvider, container, photonService)
         {
             _gameSettings = gameSettings;
@@ -32,6 +32,7 @@ namespace Business.Architecture.Services.Factories
             GameObject curtain = CreateBaseWithContainer(_gameSettings.GameObjectHolder.LoadingCurtain,
                 Vector3.zero, Quaternion.identity, null);
             LoadingCurtain = curtain.GetComponent<ILoadingCurtain>();
+            
             LoadingCurtain.Show();
             return LoadingCurtain;
         }

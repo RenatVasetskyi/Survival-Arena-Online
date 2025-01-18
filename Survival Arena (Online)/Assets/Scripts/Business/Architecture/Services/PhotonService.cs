@@ -18,6 +18,7 @@ namespace Business.Architecture.Services
         private bool _isReconnecting;
         
         public string ConnectionRoomName { get; private set; }
+        public bool IsMasterClient => PhotonNetwork.IsMasterClient;
 
         public PhotonService(ICoroutineRunner coroutineRunner, IEventService eventService)
         {
