@@ -44,7 +44,7 @@ namespace Business.Architecture.Services.Factories
             
             Vector3 spawnPosition = new Vector3(
                 middlePoint.position.x + randomPoint.x,
-                middlePoint.position.y + 1,
+                middlePoint.position.y,
                 middlePoint.position.z + randomPoint.y
             );
 
