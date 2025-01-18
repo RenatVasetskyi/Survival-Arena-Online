@@ -1,8 +1,8 @@
-﻿using System.Threading.Tasks;
-using Business.Architecture.Services.Factories.Interfaces;
+﻿using Business.Architecture.Services.Factories.Interfaces;
 using Business.Architecture.Services.Interfaces;
 using Business.Data;
-using Business.Game.Spawn.Interfaces;
+using Business.Data.Interfaces;
+using Business.Game.Interfaces;
 using Cysharp.Threading.Tasks;
 using ExitGames.Client.Photon;
 using Photon.Pun;
@@ -16,12 +16,14 @@ namespace Business.Architecture.Services.Factories
         private const string MapKey = "Map";
         
         private readonly IPhotonService _photonService;
+        private readonly IGameSettings _gameSettings;
 
         protected GameFactory(IInstantiator instantiator, IAssetProvider assetProvider,
-            DiContainer container, IPhotonService photonService) : base
+            DiContainer container, IPhotonService photonService, IGameSettings gameSettings) : base
             (instantiator, assetProvider, container, photonService)
         {
             _photonService = photonService;
+            _gameSettings = gameSettings;
         }
 
         public async UniTask<IMap> CreateMap()
@@ -36,6 +38,19 @@ namespace Business.Architecture.Services.Factories
             return await GetMap();
         }
 
+        public void CreatePlayer(Transform middlePoint, Transform parent)
+        {
+            Vector2 randomPoint = Random.insideUnitCircle * _gameSettings.PlayerSpawnRange;
+            
+            Vector3 spawnPosition = new Vector3(
+                middlePoint.position.x + randomPoint.x,
+                middlePoint.position.y + 1,
+                middlePoint.position.z + randomPoint.y
+            );
+
+            CreateWithPhoton<PhotonView>(AssetPath.Player, spawnPosition, Quaternion.identity, parent);
+        }
+        
         private async UniTask<IMap> GetMap()
         {
             await new WaitUntil(() => PhotonNetwork.CurrentRoom.CustomProperties.ContainsKey(MapKey));

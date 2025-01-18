@@ -1,6 +1,7 @@
 using Business.Architecture.Services.Factories.Interfaces;
 using Business.Architecture.Services.Interfaces;
 using Business.Data.Interfaces;
+using Business.Game.UI.Interfaces;
 using Business.UI.Interfaces;
 using Business.UI.RoomList.Interfaces;
 using UnityEngine;
@@ -12,6 +13,7 @@ namespace Business.Architecture.Services.Factories
     {
         private readonly IGameSettings _gameSettings;
         public ILoadingCurtain LoadingCurtain { get; private set; }
+        public IGameView GameView { get; private set; }
 
         protected UIFactory(IInstantiator instantiator, IAssetProvider assetProvider,
             DiContainer container, IPhotonService photonService, IGameSettings gameSettings) :
@@ -53,6 +55,11 @@ namespace Business.Architecture.Services.Factories
         public void MakeLoadingCurtainNull()
         {
             LoadingCurtain = null;
+        }
+        
+        public IGameView CreateGameView(string path, Transform parent)
+        {
+            return GameView = CreateBaseWithContainer(path, parent).GetComponent<IGameView>();
         }
     }
 }

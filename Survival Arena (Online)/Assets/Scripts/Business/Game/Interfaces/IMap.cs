@@ -1,9 +1,10 @@
 ﻿using UnityEngine;
 
-namespace Business.Game.Spawn.Interfaces
+namespace Business.Game.Interfaces
 {
     public interface IMap
     {
         Transform SpawnPoint { get; }
+        Transform PlayerContainer { get;  }
     }
 }

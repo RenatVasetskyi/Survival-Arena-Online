@@ -1,9 +1,9 @@
 using Business.Architecture.Services.Factories.Interfaces;
 using Business.Architecture.Services.Interfaces;
 using Business.Architecture.States.Interfaces;
-using Business.Data.Interfaces;
-using Business.Game.Spawn;
-using Business.Game.Spawn.Interfaces;
+using Business.Data;
+using Business.Game.Interfaces;
+using UnityEngine;
 
 namespace Business.Architecture.States
 {
@@ -18,13 +18,13 @@ namespace Business.Architecture.States
         private readonly IAssetProvider _assetProvider;
         private readonly IPhotonService _photonService;
         private readonly IEventService _eventService;
+        private readonly IFactory _factory;
         private readonly IGameFactory _gameFactory;
-        private readonly PlayerSpawner _playerSpawner;
 
         public LoadGameState(ISceneLoader sceneLoader, IGamePauser gamePauser,
             IAudioService audioService, IUIFactory uiFactory, IAssetProvider assetProvider, 
             IPhotonService photonService, IEventService eventService, IFactory factory, 
-            IGameSettings gameSettings, IGameFactory gameFactory)
+            IGameFactory gameFactory)
         {
             _sceneLoader = sceneLoader;
             _gamePauser = gamePauser;
@@ -33,8 +33,8 @@ namespace Business.Architecture.States
             _assetProvider = assetProvider;
             _photonService = photonService;
             _eventService = eventService;
+            _factory = factory;
             _gameFactory = gameFactory;
-            _playerSpawner = new PlayerSpawner(factory, gameSettings);
         }
         
         public void Exit()
@@ -70,8 +70,11 @@ namespace Business.Architecture.States
             _gamePauser.Clear();
             _gamePauser.SetPause(false);
             
+            Transform container = _factory.CreateBaseWithObject<Transform>(AssetPath.Container);
+            
+            _uiFactory.CreateGameView(AssetPath.GameView, container);
             IMap map = await _gameFactory.CreateMap();
-            _playerSpawner.SpawnPlayerInRange(map.SpawnPoint, null);
+            _gameFactory.CreatePlayer(map.SpawnPoint, map.PlayerContainer);
             
             _uiFactory.LoadingCurtain.Hide();
         }
