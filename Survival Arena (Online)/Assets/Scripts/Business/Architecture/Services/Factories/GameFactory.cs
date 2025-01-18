@@ -24,7 +24,7 @@ namespace Business.Architecture.Services.Factories
             _photonService = photonService;
         }
 
-        public async Task<IMap> CreateMap()
+        public async UniTask<IMap> CreateMap()
         {
             if (_photonService.IsMasterClient)
             {

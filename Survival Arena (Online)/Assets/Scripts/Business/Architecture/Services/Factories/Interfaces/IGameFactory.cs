@@ -1,10 +1,10 @@
-﻿using System.Threading.Tasks;
-using Business.Game.Spawn.Interfaces;
+﻿using Business.Game.Spawn.Interfaces;
+using Cysharp.Threading.Tasks;
 
 namespace Business.Architecture.Services.Factories.Interfaces
 {
     public interface IGameFactory
     {
-        Task<IMap> CreateMap();
+        UniTask<IMap> CreateMap();
     }
 }
