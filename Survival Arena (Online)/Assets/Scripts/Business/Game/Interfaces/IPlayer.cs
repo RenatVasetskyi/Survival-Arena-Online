@@ -1,7 +1,9 @@
-﻿namespace Business.Game.Interfaces
+﻿using UnityEngine;
+
+namespace Business.Game.Interfaces
 {
     public interface IPlayer
     {
-        void Initialize(Joystick joystick);
+        void Initialize(Joystick joystick, Camera camera);
     }
 }

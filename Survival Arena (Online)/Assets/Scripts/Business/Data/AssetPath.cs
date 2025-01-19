@@ -10,5 +10,6 @@ namespace Business.Data
         public const string Player = "Prefabs/Game/player";
         public const string Map = "Prefabs/Game/map";
         public const string GameView = "Prefabs/UI/game_view";
+        public const string GameCamera = "Prefabs/Game/game_camera";
     }
 }

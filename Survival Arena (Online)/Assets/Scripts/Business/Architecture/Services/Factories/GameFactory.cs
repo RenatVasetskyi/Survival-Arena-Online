@@ -51,7 +51,12 @@ namespace Business.Architecture.Services.Factories
 
             return CreateWithPhoton<PhotonView>(AssetPath.Player, spawnPosition, Quaternion.identity, parent).GetComponent<IPlayer>();
         }
-        
+
+        public Camera CreateCamera()
+        {
+            return CreateBaseWithObject<Camera>(AssetPath.GameCamera, null);
+        }
+
         private async UniTask<IMap> GetMap()
         {
             await new WaitUntil(() => PhotonNetwork.CurrentRoom.CustomProperties.ContainsKey(MapKey));

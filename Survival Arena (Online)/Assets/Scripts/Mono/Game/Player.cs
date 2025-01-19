@@ -1,4 +1,5 @@
-﻿using Business.Game.Interfaces;
+﻿using Business.Extensions;
+using Business.Game.Interfaces;
 using UnityEngine;
 
 namespace Mono.Game
@@ -11,13 +12,23 @@ namespace Mono.Game
         [SerializeField] private float _speed;
         [SerializeField] private float _rotationSpeed;
 
+        private Camera _camera;
         private Joystick _joystick;
         private bool _initialized;
 
-        public void Initialize(Joystick joystick)
+        public void Initialize(Joystick joystick, Camera camera)
         {
             _joystick = joystick;
+            _camera = camera;
             _initialized = true;
+        }
+
+        private void Update()
+        {
+            if (!_initialized)
+                return;
+            
+            transform.ClampInCameraBounds(_camera);
         }
 
         private void FixedUpdate()

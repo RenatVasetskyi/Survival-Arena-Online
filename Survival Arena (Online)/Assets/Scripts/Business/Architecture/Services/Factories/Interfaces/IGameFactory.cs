@@ -8,5 +8,6 @@ namespace Business.Architecture.Services.Factories.Interfaces
     {
         UniTask<IMap> CreateMap();
         IPlayer CreatePlayer(Transform middlePoint, Transform parent);
+        Camera CreateCamera();
     }
 }

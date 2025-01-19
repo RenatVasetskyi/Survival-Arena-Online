@@ -73,10 +73,12 @@ namespace Business.Architecture.States
             
             Transform container = _factory.CreateBaseWithObject<Transform>(AssetPath.Container);
             
+            Camera camera = _gameFactory.CreateCamera();
+            
             IGameView gameView = _uiFactory.CreateGameView(AssetPath.GameView, container);
             IMap map = await _gameFactory.CreateMap();
             IPlayer player = _gameFactory.CreatePlayer(map.SpawnPoint, map.PlayerContainer);
-            player.Initialize(gameView.Joystick);
+            player.Initialize(gameView.Joystick, camera);
             
             _uiFactory.LoadingCurtain.Hide();
         }
