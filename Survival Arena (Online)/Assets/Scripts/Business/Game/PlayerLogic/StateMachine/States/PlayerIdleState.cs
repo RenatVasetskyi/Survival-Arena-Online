@@ -1,8 +1,8 @@
-using Mono.Game.Character.Animations;
-using Mono.Game.Character.StateMachine.Interfaces;
+using Business.Game.PlayerLogic.Animations;
+using Business.Game.PlayerLogic.StateMachine.Interfaces;
 using UnityEngine;
 
-namespace Mono.Game.Character.StateMachine.States
+namespace Business.Game.PlayerLogic.StateMachine.States
 {
     public class PlayerIdleState : ICharacterState
     {
@@ -21,8 +21,7 @@ namespace Mono.Game.Character.StateMachine.States
         {
             StopRigidbody();
             
-            _playerAnimator.SetSpeed(AnimationSpeed);
-            _playerAnimator.PlayIdleAnimation();
+            _playerAnimator.Idle(AnimationSpeed);
         }
 
         public void Exit()

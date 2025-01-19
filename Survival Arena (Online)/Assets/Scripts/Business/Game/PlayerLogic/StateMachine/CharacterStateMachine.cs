@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
-using Mono.Game.Character.StateMachine.Interfaces;
+using Business.Game.PlayerLogic.StateMachine.Interfaces;
 
-namespace Mono.Game.Character.StateMachine
+namespace Business.Game.PlayerLogic.StateMachine
 {
     public class CharacterStateMachine : ICharacterStateMachine
     {

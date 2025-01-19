@@ -1,14 +1,13 @@
-using Mono.Game.Character.Animations;
-using Mono.Game.Character.Interfaces;
-using Mono.Game.Character.StateMachine.Interfaces;
+using Business.Game.PlayerLogic.Animations;
+using Business.Game.PlayerLogic.Interfaces;
+using Business.Game.PlayerLogic.StateMachine.Interfaces;
 using UnityEngine;
 
-namespace Mono.Game.Character.StateMachine.States
+namespace Business.Game.PlayerLogic.StateMachine.States
 {
     public class PlayerMovementState : ICharacterState
     {
         private const float AnimationSpeedMultiplayer = 0.2f;
-        private const float MinMagnitudeToRotate = 0.1f;
         
         private readonly IInputController _inputController;
         private readonly Rigidbody _rigidbody;
@@ -28,9 +27,7 @@ namespace Mono.Game.Character.StateMachine.States
         
         public void Enter()
         {
-            _playerAnimator.SetSpeed(_speed * AnimationSpeedMultiplayer);
-            
-            _playerAnimator.PlayWalkAnimation();
+            _playerAnimator.Walk(_speed * AnimationSpeedMultiplayer);
         }
 
         public void Exit()
@@ -48,19 +45,13 @@ namespace Mono.Game.Character.StateMachine.States
 
         private void Move()
         {
-            Vector3 moveDirection = new Vector3(_inputController.CurrentDirection.x, 0, _inputController.CurrentDirection.y).normalized;
+            Vector3 moveDirection =
+                new Vector3(_inputController.CurrentDirection.x, 0, _inputController.CurrentDirection.y).normalized;
             _rigidbody.velocity = moveDirection * _speed;
-
-            if (moveDirection.magnitude > MinMagnitudeToRotate)
-            {
-                Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
-                _rigidbody.MoveRotation(Quaternion.Slerp(_rigidbody.rotation, targetRotation,
-                    Time.fixedDeltaTime * _rotationSpeed));
-            }
-            else
-            {
-                _rigidbody.angularVelocity = Vector3.zero;
-            }
+            Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
+            _rigidbody.MoveRotation(Quaternion.Slerp(_rigidbody.rotation, targetRotation,
+                Time.fixedDeltaTime * _rotationSpeed));
+            _rigidbody.angularVelocity = Vector3.zero;
         }
     }
 }

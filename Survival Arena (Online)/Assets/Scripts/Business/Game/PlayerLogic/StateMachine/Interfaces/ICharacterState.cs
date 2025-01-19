@@ -1,4 +1,4 @@
-namespace Mono.Game.Character.StateMachine.Interfaces
+namespace Business.Game.PlayerLogic.StateMachine.Interfaces
 {
     public interface ICharacterState
     {

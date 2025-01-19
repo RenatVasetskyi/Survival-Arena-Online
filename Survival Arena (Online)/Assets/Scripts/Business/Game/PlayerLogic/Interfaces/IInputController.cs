@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Mono.Game.Character.Interfaces
+namespace Business.Game.PlayerLogic.Interfaces
 {
     public interface IInputController
     {

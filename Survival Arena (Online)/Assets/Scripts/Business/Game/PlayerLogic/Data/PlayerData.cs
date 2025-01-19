@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Mono.Game.Character.Data
+namespace Business.Game.PlayerLogic.Data
 {
     [Serializable]
     public class PlayerData

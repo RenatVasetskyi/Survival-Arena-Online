@@ -1,13 +1,13 @@
 ﻿using Business.Game.Interfaces;
-using Mono.Game.Character.Animations;
-using Mono.Game.Character.Data;
-using Mono.Game.Character.Interfaces;
-using Mono.Game.Character.StateMachine;
-using Mono.Game.Character.StateMachine.Interfaces;
-using Mono.Game.Character.StateMachine.States;
+using Business.Game.PlayerLogic.Animations;
+using Business.Game.PlayerLogic.Data;
+using Business.Game.PlayerLogic.Interfaces;
+using Business.Game.PlayerLogic.StateMachine;
+using Business.Game.PlayerLogic.StateMachine.Interfaces;
+using Business.Game.PlayerLogic.StateMachine.States;
 using UnityEngine;
 
-namespace Mono.Game.Character
+namespace Mono.Game.PlayerLogic
 {
     public class Player : MonoBehaviour, IPlayer
     {
@@ -16,16 +16,15 @@ namespace Mono.Game.Character
         [SerializeField] private Rigidbody _rigidbody;
         [SerializeField] private Animator _animator;
         [SerializeField] private PlayerData _data;
+        [SerializeField] private PlayerAnimator _playerAnimator;
 
         private IInputController _inputController;
-        private PlayerAnimator _playerAnimator;
         
         private float _currentSpeed;
 
         public void Initialize(IInputController inputController)
         {
             _inputController = inputController;
-            _playerAnimator = new PlayerAnimator(_animator);
             _currentSpeed = _data.Speed;
             
             StateFactory stateFactory = new StateFactory

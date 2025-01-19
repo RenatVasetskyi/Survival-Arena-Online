@@ -157,7 +157,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _spawnPoint: {fileID: 683979444555806612}
-  _playerContainer: {fileID: 9165631777935712488}
+  _defenceZone: {fileID: 6347761648044830607}
 --- !u!1 &683979444555806615
 GameObject:
   m_ObjectHideFlags: 0

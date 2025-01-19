@@ -1,4 +1,4 @@
-﻿using Mono.Game.Character.Interfaces;
+﻿using Business.Game.PlayerLogic.Interfaces;
 using UnityEngine;
 
 namespace Business.Game.Interfaces

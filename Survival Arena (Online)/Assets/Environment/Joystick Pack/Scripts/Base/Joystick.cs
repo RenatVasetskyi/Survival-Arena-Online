@@ -1,5 +1,5 @@
 ﻿using System;
-using Mono.Game.Character.Interfaces;
+using Business.Game.PlayerLogic.Interfaces;
 using UnityEngine;
 using UnityEngine.EventSystems;
 

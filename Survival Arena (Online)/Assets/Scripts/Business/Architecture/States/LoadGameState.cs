@@ -77,7 +77,7 @@ namespace Business.Architecture.States
             
             IGameView gameView = _uiFactory.CreateGameView(AssetPath.GameView, container);
             IMap map = await _gameFactory.CreateMap();
-            IPlayer player = _gameFactory.CreatePlayer(map.SpawnPoint, map.PlayerContainer);
+            IPlayer player = _gameFactory.CreatePlayer(map.SpawnPoint, null);
             player.Initialize(gameView.Joystick);
             
             _uiFactory.LoadingCurtain.Hide();
