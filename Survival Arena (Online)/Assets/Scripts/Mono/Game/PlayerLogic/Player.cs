@@ -23,16 +23,18 @@ namespace Mono.Game.PlayerLogic
         private IInputController _inputController;
         
         private float _currentSpeed;
+        private float _damage;
 
         public void Initialize(IInputController inputController)
         {
             _inputController = inputController;
             _currentSpeed = _data.Speed;
+            _damage = _data.Damage;
 
             _playerAnimator = new PlayerAnimator(_animator, GetComponent<PhotonView>());
             
             StateFactory stateFactory = new StateFactory
-                (_stateMachine, _inputController, _rigidbody, _playerAnimator, _data, _currentSpeed);
+                (_stateMachine, _inputController, _rigidbody, _playerAnimator, _data, ref _currentSpeed, ref _damage);
 
             Subscribe();
             
@@ -76,6 +78,11 @@ namespace Mono.Game.PlayerLogic
             _stateMachine.EnterState<PlayerIdleState>();
         }
 
+        private void EnterAttackState()
+        {
+            _stateMachine.EnterState<PlayerAttackState>();
+        }
+
         private sealed class StateFactory
         {
             private readonly ICharacterStateMachine _stateMachine;
@@ -84,9 +91,10 @@ namespace Mono.Game.PlayerLogic
             private readonly IPlayerAnimator _playerAnimator;
             private readonly PlayerData _data;
             private float _speed;
+            private float _damage;
 
             public StateFactory(ICharacterStateMachine stateMachine, IInputController inputController, 
-                Rigidbody rigidbody, IPlayerAnimator playerAnimator, PlayerData data, float speed)
+                Rigidbody rigidbody, IPlayerAnimator playerAnimator, PlayerData data, ref float speed, ref float damage)
             {
                 _stateMachine = stateMachine;
                 _inputController = inputController;
@@ -94,6 +102,7 @@ namespace Mono.Game.PlayerLogic
                 _playerAnimator = playerAnimator;
                 _data = data;
                 _speed = speed;
+                _damage = damage;
 
                 CreateStates();
             }
@@ -112,7 +121,13 @@ namespace Mono.Game.PlayerLogic
             private void CreatePlayerMovementState()
             {
                 _stateMachine.AddState<PlayerMovementState>(new PlayerMovementState
-                    (_inputController, _rigidbody, _playerAnimator, ref _speed, _data.Speed));
+                    (_inputController, _rigidbody, _playerAnimator, ref _speed, _data.RotationSpeed));
+            }
+            
+            private void CreatePlayerAttackState()
+            {
+                _stateMachine.AddState<PlayerAttackState>(new PlayerAttackState
+                    (_playerAnimator, ref _damage));
             }
         }
     }

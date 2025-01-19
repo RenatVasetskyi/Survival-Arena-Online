@@ -140,7 +140,8 @@ MonoBehaviour:
   _animator: {fileID: 8124088355853570870}
   _data:
     _speed: 5
-    _rotationSpeed: 200
+    _rotationSpeed: 15
+    _damage: 1
 --- !u!1001 &7131264945999906749
 PrefabInstance:
   m_ObjectHideFlags: 0
