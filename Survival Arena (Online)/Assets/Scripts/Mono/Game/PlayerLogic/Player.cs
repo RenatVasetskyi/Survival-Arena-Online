@@ -6,6 +6,7 @@ using Business.Game.PlayerLogic.Interfaces;
 using Business.Game.PlayerLogic.StateMachine;
 using Business.Game.PlayerLogic.StateMachine.Interfaces;
 using Business.Game.PlayerLogic.StateMachine.States;
+using Business.Game.UI.Interfaces;
 using Photon.Pun;
 using UnityEngine;
 
@@ -13,21 +14,25 @@ namespace Mono.Game.PlayerLogic
 {
     public class Player : MonoBehaviour, IPlayer
     {
+        private const float MinMagnitudeToEnterMovementState = 0.01f;
+        
         private readonly ICharacterStateMachine _stateMachine = new CharacterStateMachine();
 
         [SerializeField] private Rigidbody _rigidbody;
         [SerializeField] private Animator _animator;
         [SerializeField] private PlayerData _data;
+        
         private IPlayerAnimator _playerAnimator;
-
         private IInputController _inputController;
+        private IGameView _gameView;
         
         private float _currentSpeed;
         private float _damage;
 
-        public void Initialize(IInputController inputController)
+        public void Initialize(IInputController inputController, IGameView gameView)
         {
             _inputController = inputController;
+            _gameView = gameView;
             _currentSpeed = _data.Speed;
             _damage = _data.Damage;
 
@@ -44,6 +49,7 @@ namespace Mono.Game.PlayerLogic
         private void Update()
         {
             _stateMachine.ActiveState?.FrameUpdate();
+            _playerAnimator.MonitorAttackAnimationEnd();
         }
 
         private void FixedUpdate()
@@ -60,27 +66,34 @@ namespace Mono.Game.PlayerLogic
         {
             _inputController.OnInputActivated += EnterMovementState;
             _inputController.OnInputDeactivated += EnterIdleState;
+            _playerAnimator.OnAttackAnimationEnd += EnterIdleState;
+            _gameView.AttackButton.onClick.AddListener(EnterAttackState);
         }
 
         private void UnSubscribe()
         {
             _inputController.OnInputActivated -= EnterMovementState;
             _inputController.OnInputDeactivated -= EnterIdleState;
+            _playerAnimator.OnAttackAnimationEnd -= EnterIdleState;
+            _gameView.AttackButton.onClick.RemoveListener(EnterAttackState);
         }
 
         private void EnterMovementState()
         {
-            _stateMachine.EnterState<PlayerMovementState>();
+            if (!_stateMachine.CompareStateWithActive<PlayerMovementState>())
+                _stateMachine.EnterState<PlayerMovementState>();
         }
 
         private void EnterIdleState()
         {
-            _stateMachine.EnterState<PlayerIdleState>();
+            if (!_stateMachine.CompareStateWithActive<PlayerIdleState>()) 
+                _stateMachine.EnterState<PlayerIdleState>();
         }
 
         private void EnterAttackState()
         {
-            _stateMachine.EnterState<PlayerAttackState>();
+            if (!_stateMachine.CompareStateWithActive<PlayerAttackState>()) 
+                _stateMachine.EnterState<PlayerAttackState>();
         }
 
         private sealed class StateFactory
@@ -111,6 +124,7 @@ namespace Mono.Game.PlayerLogic
             {
                 CreatePlayerIdleState();
                 CreatePlayerMovementState();
+                CreatePlayerAttackState();
             }
 
             private void CreatePlayerIdleState()

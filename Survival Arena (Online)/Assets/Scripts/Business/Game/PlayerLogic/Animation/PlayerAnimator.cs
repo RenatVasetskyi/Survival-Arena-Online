@@ -1,4 +1,5 @@
-﻿using Business.Game.PlayerLogic.Animation.Interfaces;
+﻿using System;
+using Business.Game.PlayerLogic.Animation.Interfaces;
 using Photon.Pun;
 using UnityEngine;
 
@@ -12,6 +13,10 @@ namespace Business.Game.PlayerLogic.Animation
         
         private readonly Animator _animator;
         private readonly PhotonView _photonView;
+        
+        public event Action OnAttackAnimationEnd;
+
+        private bool _monitorAttackAnimationEnd;
 
         public PlayerAnimator(Animator animator, PhotonView photonView)
         {
@@ -42,6 +47,7 @@ namespace Business.Game.PlayerLogic.Animation
         {
             if (_photonView.IsMine)
             {
+                _monitorAttackAnimationEnd = true;
                 _animator.speed = speed;
                 _animator.SetTrigger(AttackAnimationName);
             }
@@ -53,6 +59,20 @@ namespace Business.Game.PlayerLogic.Animation
             {
                 _animator.speed = speed;
                 _animator.SetTrigger(DieAnimationName);
+            }
+        }
+        
+        public void MonitorAttackAnimationEnd()
+        {
+            if (!_monitorAttackAnimationEnd)
+                return;
+            
+            AnimatorStateInfo stateInfo = _animator.GetCurrentAnimatorStateInfo(0);
+
+            if (stateInfo.IsName(AttackAnimationName) && stateInfo.normalizedTime >= 1.0f)
+            {
+                _monitorAttackAnimationEnd = false;
+                OnAttackAnimationEnd?.Invoke();
             }
         }
     }
