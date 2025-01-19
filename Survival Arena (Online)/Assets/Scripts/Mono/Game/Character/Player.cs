@@ -19,16 +19,14 @@ namespace Mono.Game.Character
 
         private IInputController _inputController;
         private PlayerAnimator _playerAnimator;
-        private Camera _camera;
         
         private float _currentSpeed;
 
-        public void Initialize(IInputController inputController, Camera camera)
+        public void Initialize(IInputController inputController)
         {
             _inputController = inputController;
             _playerAnimator = new PlayerAnimator(_animator);
             _currentSpeed = _data.Speed;
-            _camera = camera;
             
             StateFactory stateFactory = new StateFactory
                 (_stateMachine, _inputController, _rigidbody, _playerAnimator, _data, _currentSpeed);
@@ -52,7 +50,7 @@ namespace Mono.Game.Character
         {
             UnSubscribe();
         }
-        
+
         private void Subscribe()
         {
             _inputController.OnInputActivated += EnterMovementState;
@@ -75,7 +73,7 @@ namespace Mono.Game.Character
             _stateMachine.EnterState<PlayerIdleState>();
         }
 
-        private class StateFactory
+        private sealed class StateFactory
         {
             private readonly ICharacterStateMachine _stateMachine;
             private readonly IInputController _inputController;

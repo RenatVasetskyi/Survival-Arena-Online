@@ -5,6 +5,6 @@ namespace Business.Game.Interfaces
 {
     public interface IPlayer
     {
-        void Initialize(IInputController inputController, Camera camera);
+        void Initialize(IInputController inputController);
     }
 }
