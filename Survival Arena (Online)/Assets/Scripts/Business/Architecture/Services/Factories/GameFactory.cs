@@ -40,7 +40,7 @@ namespace Business.Architecture.Services.Factories
 
         public IPlayer CreatePlayer(Transform middlePoint, Transform parent)
         {
-            //create player in circle
+            //create player in circle radius
             float angle = Random.Range(0, Mathf.PI * 2);
             float radius = Mathf.Sqrt(Random.Range(_gameSettings.PlayerMinSpawnRange * _gameSettings
                 .PlayerMinSpawnRange, _gameSettings.PlayerMaxSpawnRange * _gameSettings.PlayerMaxSpawnRange));

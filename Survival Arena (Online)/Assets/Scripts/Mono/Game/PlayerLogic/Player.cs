@@ -1,10 +1,12 @@
 ﻿using Business.Game.Interfaces;
-using Business.Game.PlayerLogic.Animations;
+using Business.Game.PlayerLogic.Animation;
+using Business.Game.PlayerLogic.Animation.Interfaces;
 using Business.Game.PlayerLogic.Data;
 using Business.Game.PlayerLogic.Interfaces;
 using Business.Game.PlayerLogic.StateMachine;
 using Business.Game.PlayerLogic.StateMachine.Interfaces;
 using Business.Game.PlayerLogic.StateMachine.States;
+using Photon.Pun;
 using UnityEngine;
 
 namespace Mono.Game.PlayerLogic
@@ -16,7 +18,7 @@ namespace Mono.Game.PlayerLogic
         [SerializeField] private Rigidbody _rigidbody;
         [SerializeField] private Animator _animator;
         [SerializeField] private PlayerData _data;
-        [SerializeField] private PlayerAnimator _playerAnimator;
+        private IPlayerAnimator _playerAnimator;
 
         private IInputController _inputController;
         
@@ -26,6 +28,8 @@ namespace Mono.Game.PlayerLogic
         {
             _inputController = inputController;
             _currentSpeed = _data.Speed;
+
+            _playerAnimator = new PlayerAnimator(_animator, GetComponent<PhotonView>());
             
             StateFactory stateFactory = new StateFactory
                 (_stateMachine, _inputController, _rigidbody, _playerAnimator, _data, _currentSpeed);
@@ -77,12 +81,12 @@ namespace Mono.Game.PlayerLogic
             private readonly ICharacterStateMachine _stateMachine;
             private readonly IInputController _inputController;
             private readonly Rigidbody _rigidbody;
-            private readonly PlayerAnimator _playerAnimator;
+            private readonly IPlayerAnimator _playerAnimator;
             private readonly PlayerData _data;
             private float _speed;
 
             public StateFactory(ICharacterStateMachine stateMachine, IInputController inputController, 
-                Rigidbody rigidbody, PlayerAnimator playerAnimator, PlayerData data, float speed)
+                Rigidbody rigidbody, IPlayerAnimator playerAnimator, PlayerData data, float speed)
             {
                 _stateMachine = stateMachine;
                 _inputController = inputController;

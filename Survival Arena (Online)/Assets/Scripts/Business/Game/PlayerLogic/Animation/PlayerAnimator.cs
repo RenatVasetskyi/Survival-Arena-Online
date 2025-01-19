@@ -1,19 +1,28 @@
-﻿using Photon.Pun;
+﻿using Business.Game.PlayerLogic.Animation.Interfaces;
+using Photon.Pun;
 using UnityEngine;
 
-namespace Business.Game.PlayerLogic.Animations
+namespace Business.Game.PlayerLogic.Animation
 {
-    public class PlayerAnimator : MonoBehaviourPun
+    public class PlayerAnimator : IPlayerAnimator
     {
         private const string WalkAnimationName = "IsWalking";
         private const string AttackAnimationName = "Attack";
         private const string DieAnimationName = "Die";
         
-        [SerializeField] private Animator _animator;
+        private readonly Animator _animator;
+        private readonly PhotonView _photonView;
+
+        public PlayerAnimator(Animator animator, PhotonView photonView)
+        {
+            _animator = animator;
+            _photonView = photonView;
+            _animator = animator;
+        }
 
         public void Idle(float speed)
         {
-            if (photonView.IsMine)
+            if (_photonView.IsMine)
             {
                 _animator.speed = speed;
                 _animator.SetBool(WalkAnimationName, false);
@@ -22,7 +31,7 @@ namespace Business.Game.PlayerLogic.Animations
 
         public void Walk(float speed)
         {
-            if (photonView.IsMine)
+            if (_photonView.IsMine)
             {
                 _animator.speed = speed;
                 _animator.SetBool(WalkAnimationName, true);
@@ -31,7 +40,7 @@ namespace Business.Game.PlayerLogic.Animations
 
         public void Attack(float speed)
         {
-            if (photonView.IsMine)
+            if (_photonView.IsMine)
             {
                 _animator.speed = speed;
                 _animator.SetTrigger(AttackAnimationName);
@@ -40,7 +49,7 @@ namespace Business.Game.PlayerLogic.Animations
 
         public void Die(float speed)
         {
-            if (photonView.IsMine)
+            if (_photonView.IsMine)
             {
                 _animator.speed = speed;
                 _animator.SetTrigger(DieAnimationName);

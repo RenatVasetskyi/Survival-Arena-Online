@@ -1,5 +1,6 @@
-using Business.Game.PlayerLogic.Animations;
+using Business.Game.PlayerLogic.Animation.Interfaces;
 using Business.Game.PlayerLogic.StateMachine.Interfaces;
+using Mono.Game.PlayerLogic;
 using UnityEngine;
 
 namespace Business.Game.PlayerLogic.StateMachine.States
@@ -8,10 +9,10 @@ namespace Business.Game.PlayerLogic.StateMachine.States
     {
         private const float AnimationSpeed = 1f;
         
-        private readonly PlayerAnimator _playerAnimator;
+        private readonly IPlayerAnimator _playerAnimator;
         private readonly Rigidbody _rigidbody;
 
-        public PlayerIdleState(PlayerAnimator playerAnimator, Rigidbody rigidbody)
+        public PlayerIdleState(IPlayerAnimator playerAnimator, Rigidbody rigidbody)
         {
             _playerAnimator = playerAnimator;
             _rigidbody = rigidbody;

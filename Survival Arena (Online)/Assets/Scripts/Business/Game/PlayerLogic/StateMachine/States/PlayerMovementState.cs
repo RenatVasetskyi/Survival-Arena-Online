@@ -1,4 +1,4 @@
-using Business.Game.PlayerLogic.Animations;
+using Business.Game.PlayerLogic.Animation.Interfaces;
 using Business.Game.PlayerLogic.Interfaces;
 using Business.Game.PlayerLogic.StateMachine.Interfaces;
 using UnityEngine;
@@ -11,12 +11,12 @@ namespace Business.Game.PlayerLogic.StateMachine.States
         
         private readonly IInputController _inputController;
         private readonly Rigidbody _rigidbody;
-        private readonly PlayerAnimator _playerAnimator;
+        private readonly IPlayerAnimator _playerAnimator;
         private readonly float _speed;
         private readonly float _rotationSpeed;
 
         public PlayerMovementState(IInputController inputController, Rigidbody rigidbody, 
-            PlayerAnimator playerAnimator, ref float speed, float rotationSpeed)
+            IPlayerAnimator playerAnimator, ref float speed, float rotationSpeed)
         {
             _inputController = inputController;
             _rigidbody = rigidbody;
