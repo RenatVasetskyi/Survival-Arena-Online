@@ -40,18 +40,20 @@ namespace Business.Architecture.Services.Factories
 
         public IPlayer CreatePlayer(Transform middlePoint, Transform parent)
         {
-            float randomRadius = Random.Range(_gameSettings.PlayerMinSpawnRange, _gameSettings.PlayerMaxSpawnRange);
-            Vector2 randomPoint = Random.insideUnitCircle * randomRadius;
-            
-            Vector3 spawnPosition = new Vector3(
-                middlePoint.position.x + randomPoint.x,
-                middlePoint.position.y,
-                middlePoint.position.z + randomPoint.y
-            );
+            //create player in circle
+            float angle = Random.Range(0, Mathf.PI * 2);
+            float radius = Mathf.Sqrt(Random.Range(_gameSettings.PlayerMinSpawnRange * _gameSettings
+                .PlayerMinSpawnRange, _gameSettings.PlayerMaxSpawnRange * _gameSettings.PlayerMaxSpawnRange));
 
-            return CreateWithPhoton<PhotonView>(AssetPath.Player, spawnPosition, Quaternion.identity, parent).GetComponent<IPlayer>();
+            float x = middlePoint.position.x + radius * Mathf.Cos(angle);
+            float z = middlePoint.position.z + radius * Mathf.Sin(angle);
+            float y = middlePoint.position.y;
+
+            Vector3 spawnPoint = new Vector3(x, y, z);
+
+            return CreateWithPhoton<PhotonView>(AssetPath.Player, spawnPoint, Quaternion.identity, parent).GetComponent<IPlayer>();
         }
-
+        
         public Camera CreateCamera()
         {
             return CreateBaseWithObject<Camera>(AssetPath.GameCamera, null);
