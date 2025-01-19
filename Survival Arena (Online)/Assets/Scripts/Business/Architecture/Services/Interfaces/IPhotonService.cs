@@ -6,6 +6,7 @@ namespace Business.Architecture.Services.Interfaces
     {
         string ConnectionRoomName { get; }
         bool IsMasterClient { get; }
+        int PlayersInRoom { get; }
         public void Reconnect();
         public void JoinLobby();
         public void LeaveRoom();

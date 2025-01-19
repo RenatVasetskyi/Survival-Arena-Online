@@ -19,6 +19,7 @@ namespace Business.Architecture.Services
         
         public string ConnectionRoomName { get; private set; }
         public bool IsMasterClient => PhotonNetwork.IsMasterClient;
+        public int PlayersInRoom => PhotonNetwork.CurrentRoom.PlayerCount;
 
         public PhotonService(ICoroutineRunner coroutineRunner, IEventService eventService)
         {

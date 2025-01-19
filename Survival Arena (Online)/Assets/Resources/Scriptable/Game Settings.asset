@@ -18,3 +18,5 @@ MonoBehaviour:
     _mainMenu: {fileID: 8844268150880066056, guid: 08397af163d52524f86b8136881b8233, type: 3}
   _playerMinSpawnRange: 3
   _playerMaxSpawnRange: 6
+  _enemyMinSpawnRange: 20
+  _enemyMaxSpawnRange: 30

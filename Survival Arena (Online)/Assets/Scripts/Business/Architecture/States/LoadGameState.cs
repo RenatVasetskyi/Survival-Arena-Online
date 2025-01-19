@@ -2,6 +2,8 @@ using Business.Architecture.Services.Factories.Interfaces;
 using Business.Architecture.Services.Interfaces;
 using Business.Architecture.States.Interfaces;
 using Business.Data;
+using Business.Game.EnemyLogic;
+using Business.Game.EnemyLogic.Interfaces;
 using Business.Game.Interfaces;
 using Business.Game.UI.Interfaces;
 using UnityEngine;
@@ -21,11 +23,12 @@ namespace Business.Architecture.States
         private readonly IEventService _eventService;
         private readonly IFactory _factory;
         private readonly IGameFactory _gameFactory;
+        private readonly ICoroutineRunner _coroutineRunner;
 
         public LoadGameState(ISceneLoader sceneLoader, IGamePauser gamePauser,
             IAudioService audioService, IUIFactory uiFactory, IAssetProvider assetProvider, 
             IPhotonService photonService, IEventService eventService, IFactory factory, 
-            IGameFactory gameFactory)
+            IGameFactory gameFactory, ICoroutineRunner coroutineRunner)
         {
             _sceneLoader = sceneLoader;
             _gamePauser = gamePauser;
@@ -36,6 +39,7 @@ namespace Business.Architecture.States
             _eventService = eventService;
             _factory = factory;
             _gameFactory = gameFactory;
+            _coroutineRunner = coroutineRunner;
         }
         
         public void Exit()
@@ -77,8 +81,11 @@ namespace Business.Architecture.States
             
             IGameView gameView = _uiFactory.CreateGameView(AssetPath.GameView, container);
             IMap map = await _gameFactory.CreateMap();
-            IPlayer player = _gameFactory.CreatePlayer(map.DefenceZone, null);
+            IPlayer player = _gameFactory.CreatePlayer(map.DefenceZone, Quaternion.identity, null);
             player.Initialize(gameView.Joystick, gameView);
+
+            IEnemySpawner enemySpawner = new EnemySpawner(_gameFactory, _coroutineRunner, _photonService);
+            enemySpawner.Spawn(map.DefenceZone, Quaternion.identity, null);
             
             _uiFactory.LoadingCurtain.Hide();
         }

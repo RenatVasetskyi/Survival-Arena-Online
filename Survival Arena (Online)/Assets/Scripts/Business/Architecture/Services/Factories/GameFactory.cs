@@ -2,7 +2,9 @@
 using Business.Architecture.Services.Interfaces;
 using Business.Data;
 using Business.Data.Interfaces;
+using Business.Game.EnemyLogic.Interfaces;
 using Business.Game.Interfaces;
+using Business.Math;
 using Cysharp.Threading.Tasks;
 using ExitGames.Client.Photon;
 using Photon.Pun;
@@ -38,20 +40,18 @@ namespace Business.Architecture.Services.Factories
             return await GetMap();
         }
 
-        public IPlayer CreatePlayer(Transform middlePoint, Transform parent)
+        public IPlayer CreatePlayer(Transform center, Quaternion rotation, Transform parent)
         {
-            //create player in circle radius
-            float angle = Random.Range(0, Mathf.PI * 2);
-            float radius = Mathf.Sqrt(Random.Range(_gameSettings.PlayerMinSpawnRange * _gameSettings
-                .PlayerMinSpawnRange, _gameSettings.PlayerMaxSpawnRange * _gameSettings.PlayerMaxSpawnRange));
+            return CreateWithPhoton<PhotonView>(AssetPath.Player, ProjectMath.GetPointInCircle
+                (center, _gameSettings.PlayerMinSpawnRange, _gameSettings.PlayerMaxSpawnRange),
+                rotation, parent).GetComponent<IPlayer>();
+        }
 
-            float x = middlePoint.position.x + radius * Mathf.Cos(angle);
-            float z = middlePoint.position.z + radius * Mathf.Sin(angle);
-            float y = middlePoint.position.y;
-
-            Vector3 spawnPoint = new Vector3(x, y, z);
-
-            return CreateWithPhoton<PhotonView>(AssetPath.Player, spawnPoint, Quaternion.identity, parent).GetComponent<IPlayer>();
+        public IEnemy CreateEnemy(Transform center, Quaternion rotation, Transform parent)
+        {
+            return CreateWithPhoton<PhotonView>(AssetPath.Enemy, ProjectMath.GetPointInCircle
+                    (center, _gameSettings.EnemyMinSpawnRange, _gameSettings.EnemyMaxSpawnRange),
+                rotation, parent).GetComponent<IEnemy>();
         }
         
         public Camera CreateCamera()
