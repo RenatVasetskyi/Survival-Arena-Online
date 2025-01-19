@@ -7,7 +7,7 @@ namespace Mono.Game.Character.StateMachine.States
 {
     public class PlayerMovementState : ICharacterState
     {
-        private const float AnimationSpeedMultiplayer = 0.25f;
+        private const float AnimationSpeedMultiplayer = 0.2f;
         private const float MinMagnitudeToRotate = 0.1f;
         
         private readonly IInputController _inputController;
