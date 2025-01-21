@@ -7,6 +7,7 @@ namespace Business.Architecture.Services.Factories.Interfaces
 {
     public interface IGameFactory
     {
+        IMap Map { get; }
         UniTask<IMap> CreateMap();
         IPlayer CreatePlayer(Transform center, Quaternion rotation, Transform parent);
         IEnemy CreateEnemy(Transform center, Quaternion rotation, Transform parent);

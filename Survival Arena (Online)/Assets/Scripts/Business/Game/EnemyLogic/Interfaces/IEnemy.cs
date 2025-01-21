@@ -2,6 +2,6 @@
 {
     public interface IEnemy
     {
-        
+        void Initialize(IEnemySpawner enemySpawner);
     }
 }

@@ -1,4 +1,5 @@
-﻿using Business.Game.Interfaces;
+﻿using Business.Architecture.Services.Factories.Interfaces;
+using Business.Game.Interfaces;
 using Business.Game.PlayerLogic.Animation;
 using Business.Game.PlayerLogic.Animation.Interfaces;
 using Business.Game.PlayerLogic.Data;
@@ -25,14 +26,17 @@ namespace Mono.Game.PlayerLogic
         private IPlayerAnimator _playerAnimator;
         private IInputController _inputController;
         private IGameView _gameView;
+        private IGameFactory _gameFactory;
         
         private float _currentSpeed;
         private float _damage;
 
-        public void Initialize(IInputController inputController, IGameView gameView)
+        public void Initialize(IInputController inputController, IGameView gameView, 
+            IGameFactory gameFactory)
         {
             _inputController = inputController;
             _gameView = gameView;
+            _gameFactory = gameFactory;
             _currentSpeed = _data.Speed;
             _damage = _data.Damage;
 
@@ -50,6 +54,7 @@ namespace Mono.Game.PlayerLogic
         {
             _stateMachine.ActiveState?.FrameUpdate();
             _playerAnimator?.MonitorAttackAnimationEnd();
+            ClampInsideCircle();
         }
 
         private void FixedUpdate()
@@ -76,6 +81,19 @@ namespace Mono.Game.PlayerLogic
             _inputController.OnInputDeactivated -= EnterIdleState;
             _playerAnimator.OnAttackAnimationEnd -= ExitAttackState;
             _gameView.AttackButton.onClick.RemoveListener(EnterAttackState);
+        }
+
+        private void ClampInsideCircle()
+        {
+            Vector3 playerPosition = transform.position;
+
+            Vector3 offset = playerPosition - _gameFactory.Map.DefenceZone.position;
+
+            if (offset.magnitude >  _gameFactory.Map.DefenceZoneRadius)
+            {
+                offset = offset.normalized *  _gameFactory.Map.DefenceZoneRadius;
+                transform.position = _gameFactory.Map.DefenceZone.position + offset;
+            }
         }
 
         private void EnterMovementState()

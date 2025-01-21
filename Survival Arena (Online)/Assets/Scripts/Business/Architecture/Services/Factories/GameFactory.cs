@@ -20,6 +20,8 @@ namespace Business.Architecture.Services.Factories
         private readonly IPhotonService _photonService;
         private readonly IGameSettings _gameSettings;
 
+        public IMap Map { get; private set; }
+        
         protected GameFactory(IInstantiator instantiator, IAssetProvider assetProvider,
             DiContainer container, IPhotonService photonService, IGameSettings gameSettings) : base
             (instantiator, assetProvider, container, photonService)
@@ -34,7 +36,7 @@ namespace Business.Architecture.Services.Factories
             {
                 PhotonView map = CreateWithPhoton<PhotonView>(AssetPath.Map, Vector3.zero, Quaternion.identity, null);
                 PhotonNetwork.CurrentRoom.SetCustomProperties(new Hashtable { { MapKey, map.ViewID } } );
-                return map.GetComponent<IMap>();
+                return Map = map.GetComponent<IMap>();
             }
             
             return await GetMap();
@@ -43,7 +45,7 @@ namespace Business.Architecture.Services.Factories
         public IPlayer CreatePlayer(Transform center, Quaternion rotation, Transform parent)
         {
             return CreateWithPhoton<PhotonView>(AssetPath.Player, ProjectMath.GetPointInCircle
-                (center, _gameSettings.PlayerMinSpawnRange, _gameSettings.PlayerMaxSpawnRange),
+                (center, Map.CastleRadius, Map.DefenceZoneRadius),
                 rotation, parent).GetComponent<IPlayer>();
         }
 
@@ -64,7 +66,7 @@ namespace Business.Architecture.Services.Factories
             await new WaitUntil(() => PhotonNetwork.CurrentRoom.CustomProperties.ContainsKey(MapKey));
             int viewId = (int)PhotonNetwork.CurrentRoom.CustomProperties[MapKey];
             await new WaitUntil(() => PhotonView.Find(viewId) != null);
-            return PhotonView.Find(viewId).GetComponent<IMap>();
+            return Map = PhotonView.Find(viewId).GetComponent<IMap>();
         }
     }
 }

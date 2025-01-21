@@ -20,3 +20,4 @@ MonoBehaviour:
   _playerMaxSpawnRange: 6
   _enemyMinSpawnRange: 20
   _enemyMaxSpawnRange: 30
+  _maxEnemies: 10

@@ -155,6 +155,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _defenceZone: {fileID: 6347761648044830607}
+  _defenceZoneRadius: 6.25
+  _castleRadius: 3
 --- !u!1 &6347761648044830603
 GameObject:
   m_ObjectHideFlags: 0
