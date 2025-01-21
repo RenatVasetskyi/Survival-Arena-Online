@@ -10,5 +10,6 @@ namespace Business.Game.PlayerLogic.Animation.Interfaces
         void Attack(float speed);
         void Die(float speed);
         void MonitorAttackAnimationEnd();
+        void ChangeSpeed(float speed);
     }
 }

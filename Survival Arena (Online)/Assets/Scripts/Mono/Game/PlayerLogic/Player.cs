@@ -49,7 +49,7 @@ namespace Mono.Game.PlayerLogic
         private void Update()
         {
             _stateMachine.ActiveState?.FrameUpdate();
-            _playerAnimator.MonitorAttackAnimationEnd();
+            _playerAnimator?.MonitorAttackAnimationEnd();
         }
 
         private void FixedUpdate()
@@ -66,7 +66,7 @@ namespace Mono.Game.PlayerLogic
         {
             _inputController.OnInputActivated += EnterMovementState;
             _inputController.OnInputDeactivated += EnterIdleState;
-            _playerAnimator.OnAttackAnimationEnd += EnterIdleState;
+            _playerAnimator.OnAttackAnimationEnd += ExitAttackState;
             _gameView.AttackButton.onClick.AddListener(EnterAttackState);
         }
 
@@ -74,13 +74,14 @@ namespace Mono.Game.PlayerLogic
         {
             _inputController.OnInputActivated -= EnterMovementState;
             _inputController.OnInputDeactivated -= EnterIdleState;
-            _playerAnimator.OnAttackAnimationEnd -= EnterIdleState;
+            _playerAnimator.OnAttackAnimationEnd -= ExitAttackState;
             _gameView.AttackButton.onClick.RemoveListener(EnterAttackState);
         }
 
         private void EnterMovementState()
         {
-            if (!_stateMachine.CompareStateWithActive<PlayerMovementState>())
+            if (!_stateMachine.CompareStateWithActive<PlayerMovementState>() &
+                !_stateMachine.CompareStateWithActive<PlayerAttackState>())
                 _stateMachine.EnterState<PlayerMovementState>();
         }
 
@@ -94,6 +95,17 @@ namespace Mono.Game.PlayerLogic
         {
             if (!_stateMachine.CompareStateWithActive<PlayerAttackState>()) 
                 _stateMachine.EnterState<PlayerAttackState>();
+        }
+
+        private void ExitAttackState()
+        {
+            if (!_stateMachine.CompareStateWithActive<PlayerAttackState>())
+                return;
+
+            if (_inputController.CurrentDirection.magnitude >= MinMagnitudeToEnterMovementState)
+                _stateMachine.EnterState<PlayerMovementState>();
+            else
+                _stateMachine.EnterState<PlayerIdleState>();
         }
 
         private sealed class StateFactory

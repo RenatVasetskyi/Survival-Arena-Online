@@ -7,7 +7,7 @@ namespace Business.Game.PlayerLogic.StateMachine.States
 {
     public class PlayerMovementState : ICharacterState
     {
-        private const float AnimationSpeedMultiplayer = 0.2f;
+        private const float AnimationSpeedMultiplayer = 0.25f;
         
         private readonly IInputController _inputController;
         private readonly Rigidbody _rigidbody;
@@ -27,7 +27,7 @@ namespace Business.Game.PlayerLogic.StateMachine.States
         
         public void Enter()
         {
-            _playerAnimator.Walk(_speed * AnimationSpeedMultiplayer);
+            _playerAnimator.Walk(_speed * _inputController.CurrentDirection.magnitude);
         }
 
         public void Exit()
@@ -36,6 +36,8 @@ namespace Business.Game.PlayerLogic.StateMachine.States
 
         public void FrameUpdate()
         {
+            _playerAnimator.ChangeSpeed(_speed * _inputController
+                .CurrentDirection.magnitude * AnimationSpeedMultiplayer);
         }
 
         public void PhysicsUpdate()
@@ -47,7 +49,7 @@ namespace Business.Game.PlayerLogic.StateMachine.States
         {
             Vector3 moveDirection =
                 new Vector3(_inputController.CurrentDirection.x, 0, _inputController.CurrentDirection.y).normalized;
-            _rigidbody.velocity = moveDirection * _speed;
+            _rigidbody.velocity = moveDirection * _speed * _inputController.CurrentDirection.magnitude;
             Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
             _rigidbody.MoveRotation(Quaternion.Slerp(_rigidbody.rotation, targetRotation,
                 Time.fixedDeltaTime * _rotationSpeed));

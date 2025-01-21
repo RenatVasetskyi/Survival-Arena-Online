@@ -20,7 +20,7 @@ namespace Business.Game.PlayerLogic.StateMachine
 
             TState state = GetState<TState>();
             state.Enter();
-
+            
             ActiveState = state;
         }
         

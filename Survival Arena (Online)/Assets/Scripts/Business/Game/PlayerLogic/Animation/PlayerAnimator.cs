@@ -7,9 +7,10 @@ namespace Business.Game.PlayerLogic.Animation
 {
     public class PlayerAnimator : IPlayerAnimator
     {
-        private const string WalkAnimationName = "IsWalking";
-        private const string AttackAnimationName = "Attack";
-        private const string DieAnimationName = "Die";
+        private const string IdleTriggerName = "Idle";
+        private const string WalkTriggerName = "Walk";
+        private const string AttackTriggerName = "Attack";
+        private const string DieTriggerName = "Die";
         
         private readonly Animator _animator;
         private readonly PhotonView _photonView;
@@ -29,8 +30,9 @@ namespace Business.Game.PlayerLogic.Animation
         {
             if (_photonView.IsMine)
             {
-                _animator.speed = speed;
-                _animator.SetBool(WalkAnimationName, false);
+                ResetAllTriggers();
+                ChangeSpeed(speed);
+                _animator.SetTrigger(IdleTriggerName);
             }
         }
 
@@ -38,8 +40,9 @@ namespace Business.Game.PlayerLogic.Animation
         {
             if (_photonView.IsMine)
             {
-                _animator.speed = speed;
-                _animator.SetBool(WalkAnimationName, true);
+                ResetAllTriggers();
+                ChangeSpeed(speed);
+                _animator.SetTrigger(WalkTriggerName);
             }
         }
 
@@ -48,8 +51,9 @@ namespace Business.Game.PlayerLogic.Animation
             if (_photonView.IsMine)
             {
                 _monitorAttackAnimationEnd = true;
-                _animator.speed = speed;
-                _animator.SetTrigger(AttackAnimationName);
+                ResetAllTriggers();
+                ChangeSpeed(speed);
+                _animator.SetTrigger(AttackTriggerName);
             }
         }
 
@@ -57,8 +61,9 @@ namespace Business.Game.PlayerLogic.Animation
         {
             if (_photonView.IsMine)
             {
-                _animator.speed = speed;
-                _animator.SetTrigger(DieAnimationName);
+                ResetAllTriggers();
+                ChangeSpeed(speed);
+                _animator.SetTrigger(DieTriggerName);
             }
         }
         
@@ -69,11 +74,24 @@ namespace Business.Game.PlayerLogic.Animation
             
             AnimatorStateInfo stateInfo = _animator.GetCurrentAnimatorStateInfo(0);
 
-            if (stateInfo.IsName(AttackAnimationName) && stateInfo.normalizedTime >= 1.0f)
+            if (stateInfo.IsName(AttackTriggerName) && stateInfo.normalizedTime >= 1.0f)
             {
                 _monitorAttackAnimationEnd = false;
                 OnAttackAnimationEnd?.Invoke();
             }
+        }
+
+        public void ChangeSpeed(float speed)
+        {
+            _animator.speed = speed;
+        }
+
+        private void ResetAllTriggers()
+        {
+            _animator.ResetTrigger(IdleTriggerName);
+            _animator.ResetTrigger(WalkTriggerName);
+            _animator.ResetTrigger(AttackTriggerName);
+            _animator.ResetTrigger(DieTriggerName);
         }
     }
 }

@@ -84,9 +84,12 @@ namespace Business.Architecture.States
             IPlayer player = _gameFactory.CreatePlayer(map.DefenceZone, Quaternion.identity, null);
             player.Initialize(gameView.Joystick, gameView);
 
-            IEnemySpawner enemySpawner = new EnemySpawner(_gameFactory, _coroutineRunner, _photonService);
-            enemySpawner.Spawn(map.DefenceZone, Quaternion.identity, null);
-            
+            if (_photonService.IsMasterClient)
+            {
+                IEnemySpawner enemySpawner = new EnemySpawner(_gameFactory, _coroutineRunner, _photonService);
+                enemySpawner.Spawn(map.DefenceZone, Quaternion.identity, null);
+            }
+
             _uiFactory.LoadingCurtain.Hide();
         }
     }
